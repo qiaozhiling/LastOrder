@@ -1,0 +1,37 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Theme.Lun6" parent="Theme.MaterialComponents.DayNight.NoActionBar.Bridge">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/appPrimeColor</item>
+        <item name="colorPrimaryVariant">@color/white</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/appPrimeColor</item>
+        <item name="colorSecondaryVariant">@color/appPrimeColor</item>
+        <item name="colorOnSecondary">@color/black</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+        <!-- 控件激活选择时的颜色-->
+        <item name="colorAccent">@color/appPrimeColor</item>
+        <!--窗口背景颜色,此处不允许直接赋值如 #FFFFFF，必须在color中定义使用-->
+        <item name="android:windowBackground">@color/white</item>
+    </style>
+
+    <style name="Theme.Splash" parent="Theme.Lun6">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="colorPrimary">@color/white</item>
+        <item name="colorPrimaryVariant">@color/white</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
+        <!--title 全屏-->
+        <item name="android:windowFullscreen">true</item>
+    </style>
+
+    <style name="Theme.Navigation" parent="Theme.Lun6">
+        <!-- 控件激活选择时的颜色-->
+        <item name="colorAccent">@color/appPrimeColor</item>
+        <!--未激活(未选中)时的颜色-->
+        <item name="colorControlNormal">#002080</item>
+    </style>
+</resources>

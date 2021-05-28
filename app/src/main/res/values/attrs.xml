@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="QzlViewPagerHolder">
+        <!--
+            indicatorCStyle 指示器（选中）样式
+            indicatorStyle 指示器（未选中）样式
+            showViewPagerTitle 是否显示标题栏
+            switchDelay 轮播延迟
+            indicatorSize 指示器大小
+            indicatorPosition 指示器位置
+            titleBarColor 标题栏背景颜色
+            titleColor 标题栏文字颜色
+        -->
+        <attr name="indicatorCStyle" format="reference|color" />
+        <attr name="indicatorStyle" format="reference|color" />
+        <attr name="showViewPagerTitle" format="boolean" />
+        <attr name="switchDelay" format="integer" />
+        <attr name="indicatorSize" format="dimension" />
+        <attr name="indicatorPosition" format="enum">
+            <enum name="left" value="0" />
+            <enum name="mid" value="1" />
+            <enum name="right" value="2" />
+        </attr>
+        <attr name="titleBarColor" format="color"/>
+        <attr name="titleColor" format="color"/>
+    </declare-styleable>
+</resources>

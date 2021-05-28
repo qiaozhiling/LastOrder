@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tv1_login_group"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="本科生登录"
+        android:textColor="@color/black"
+        android:textSize="30sp" />
+
+    <TextView
+        android:id="@+id/tv2_login_group"
+        android:layout_marginTop="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="综合性最强的福大校内APP"
+        android:textColor="#AAAAAA" />
+
+    <EditText
+        android:id="@+id/edit_user_login_group"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="20dp"
+        android:autofillHints="password"
+        android:background="@drawable/edit_background"
+        android:hint="请输入教务处账号"
+        android:inputType="number"
+        android:textCursorDrawable="@drawable/edit_cursor" />
+
+    <EditText
+        android:id="@+id/edit_paswd_login_group"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="15dp"
+        android:autofillHints="password"
+        android:background="@drawable/edit_background"
+        android:hint="请输入教务处密码"
+        android:inputType="textPassword" />
+
+
+    <LinearLayout
+        android:id="@+id/linearLayout_code_group"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/edit_code_login_group"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:autofillHints=""
+            android:background="@drawable/edit_background"
+            android:hint="请输入验证码 "
+            android:inputType="number" />
+
+        <ImageView
+            android:id="@+id/iv_code_group"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:contentDescription="验证码"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/code_error" />
+    </LinearLayout>
+
+
+
+</LinearLayout>

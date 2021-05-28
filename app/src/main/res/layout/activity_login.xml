@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="15dp"
+    tools:context=".ui.activity.LoginActivity">
+
+    <com.qzl.lun6.ui.LoginEditGroup
+        android:id="@+id/loginEditGroup"
+        android:layout_width="match_parent"
+        android:layout_height= "wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.021"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.001" />
+
+    <Button
+        android:id="@+id/btm_login"
+        style="@style/Theme.Splash"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:background="@drawable/button_login"
+        android:text="登 录"
+        android:textColor="@color/white"
+        android:textSize="17sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/loginEditGroup"
+        app:layout_constraintVertical_bias="0.159" />
+
+    <RelativeLayout
+        android:id="@+id/linearLayout_in_group"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btm_login"
+        app:layout_constraintVertical_bias="0.07"
+        tools:layout_editor_absoluteX="3dp">
+
+        <TextView
+            android:id="@+id/tv_change_login"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:text="研究生登入" />
+
+        <TextView
+            android:id="@+id/tv_visitor_login"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:text="游客登入"
+            android:textColor="@color/appPrimeColor" />
+
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/tv_copyright_login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="登录即babala"
+        android:textColor="#B3B3B3"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btm_login"
+        app:layout_constraintVertical_bias="0.97" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <!--id与Navigation.xml对应一致-->
+    <item
+        android:id="@+id/table_navigation_menu"
+        android:icon="@drawable/table_selector"
+        android:title="课程" />
+
+    <item
+        android:id="@+id/toolbox_navigation_menu"
+        android:icon="@drawable/toolbox_selector"
+        android:title="工具箱" />
+
+    <item
+        android:id="@+id/my_navigation_menu"
+        android:icon="@drawable/my_selector"
+        android:title="我的" />
+
+</menu>
