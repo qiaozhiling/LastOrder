@@ -38,7 +38,7 @@ class LoginEditGroup(context: Context, attrs: AttributeSet?, defStyleAttr: Int) 
         codeImageView = view.findViewById(R.id.iv_code_group)
     }
 
-    fun setCodImage(image: Bitmap) {
+    fun setCodeImage(image: Bitmap) {
         codeImageView.setImageBitmap(image)
     }
 
@@ -48,11 +48,15 @@ class LoginEditGroup(context: Context, attrs: AttributeSet?, defStyleAttr: Int) 
 
         if (typeFlag) {
             type.text = "本科生登入"
+            user.hint="请输入教务处账号"
+            paswd.hint="请输入教务处密码"
             code.visibility = View.VISIBLE
             codeImageView.visibility = View.VISIBLE
 
         } else {
             type.text = "研究生登入"
+            user.hint="请输入研究生院账号"
+            paswd.hint="请输入研究生院密码"
             code.visibility = View.GONE
             codeImageView.visibility = View.GONE
 

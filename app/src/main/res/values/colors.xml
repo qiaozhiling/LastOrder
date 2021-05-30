@@ -8,4 +8,5 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="appPrimeColor">#0f8bff</color>
+    <color name="hintGray">#CCCCCC</color>
 </resources>

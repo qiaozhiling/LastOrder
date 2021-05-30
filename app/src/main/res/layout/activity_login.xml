@@ -10,7 +10,7 @@
     <com.qzl.lun6.ui.myviews.LoginEditGroup
         android:id="@+id/loginEditGroup"
         android:layout_width="match_parent"
-        android:layout_height= "wrap_content"
+        android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.021"
@@ -31,23 +31,27 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/loginEditGroup"
-        app:layout_constraintVertical_bias="0.159" />
+        app:layout_constraintVertical_bias="0.1" />
 
     <RelativeLayout
         android:id="@+id/linearLayout_in_group"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:paddingStart="4dp"
+        android:paddingEnd="4dp"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btm_login"
-        app:layout_constraintVertical_bias="0.07"
-        tools:layout_editor_absoluteX="3dp">
+        app:layout_constraintVertical_bias="0.05">
 
         <TextView
             android:id="@+id/tv_change_login"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
-            android:text="研究生登入" />
+            android:text="研究生登入"
+            android:textSize="13sp" />
 
         <TextView
             android:id="@+id/tv_visitor_login"
@@ -55,7 +59,8 @@
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:text="游客登入"
-            android:textColor="@color/appPrimeColor" />
+            android:textColor="@color/appPrimeColor"
+            android:textSize="13sp" />
 
     </RelativeLayout>
 
@@ -65,6 +70,7 @@
         android:layout_height="wrap_content"
         android:text="登录即babala"
         android:textColor="#B3B3B3"
+        android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

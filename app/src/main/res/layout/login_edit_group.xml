@@ -8,24 +8,26 @@
         android:id="@+id/tv1_login_group"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="30dp"
         android:text="本科生登录"
         android:textColor="@color/black"
-        android:textSize="30sp" />
+        android:textSize="28sp" />
 
     <TextView
         android:id="@+id/tv2_login_group"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="12dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="综合性最强的福大校内APP"
-        android:textColor="#AAAAAA" />
+        android:textColor="@color/hintGray" />
 
     <EditText
+        android:textSize="16sp"
+        android:textColorHint="@color/hintGray"
         android:id="@+id/edit_user_login_group"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="40dp"
         android:autofillHints="password"
         android:background="@drawable/edit_background"
         android:hint="请输入教务处账号"
@@ -33,10 +35,12 @@
         android:textCursorDrawable="@drawable/edit_cursor" />
 
     <EditText
+        android:textSize="16sp"
+        android:textColorHint="@color/hintGray"
         android:id="@+id/edit_paswd_login_group"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="20dp"
         android:autofillHints="password"
         android:background="@drawable/edit_background"
         android:hint="请输入教务处密码"
@@ -44,13 +48,15 @@
 
 
     <LinearLayout
+        android:textSize="16sp"
         android:id="@+id/linearLayout_code_group"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="20dp"
         android:orientation="horizontal">
 
         <EditText
+            android:textColorHint="@color/hintGray"
             android:id="@+id/edit_code_login_group"
             android:layout_width="0dp"
             android:layout_height="50dp"

@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import com.qzl.lun6.R
 
-
 class MyFragment : Fragment() {
 
     override fun onCreateView(
