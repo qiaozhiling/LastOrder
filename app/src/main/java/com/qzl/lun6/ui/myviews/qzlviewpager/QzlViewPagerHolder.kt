@@ -1,4 +1,4 @@
-package com.qzl.lun6.ui.qzlviewpager
+package com.qzl.lun6.ui.myviews.qzlviewpager
 
 import android.content.Context
 import android.graphics.Color

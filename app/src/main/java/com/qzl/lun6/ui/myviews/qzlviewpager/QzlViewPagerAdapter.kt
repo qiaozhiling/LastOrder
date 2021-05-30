@@ -1,4 +1,4 @@
-package com.qzl.lun6.ui.qzlviewpager
+package com.qzl.lun6.ui.myviews.qzlviewpager
 
 import android.view.View
 import android.view.ViewGroup

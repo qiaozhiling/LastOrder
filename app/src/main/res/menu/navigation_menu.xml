@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <!--id与Navigation.xml对应一致-->
+
     <item
         android:id="@+id/table_navigation_menu"
         android:icon="@drawable/table_selector"

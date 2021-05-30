@@ -7,7 +7,7 @@
     android:padding="15dp"
     tools:context=".ui.activity.LoginActivity">
 
-    <com.qzl.lun6.ui.LoginEditGroup
+    <com.qzl.lun6.ui.myviews.LoginEditGroup
         android:id="@+id/loginEditGroup"
         android:layout_width="match_parent"
         android:layout_height= "wrap_content"
