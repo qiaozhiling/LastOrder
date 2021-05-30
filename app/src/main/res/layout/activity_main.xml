@@ -10,12 +10,15 @@
         android:id="@+id/navView_main"
         android:layout_width="match_parent"
         android:layout_height="70dp"
+        app:itemIconSize="27sp"
         android:layout_alignParentBottom="true"
         android:background="?android:attr/windowBackground"
+        app:itemTextAppearanceActive="@style/bottom_selected_text"
+        app:itemTextAppearanceInactive="@style/bottom_normal_text"
         app:labelVisibilityMode="labeled"
         app:menu="@menu/navigation_menu" />
 
-    <com.qzl.lun6.ui.myviews.MyViewPager
+    <com.qzl.lun6.ui.myviews.myviewpager.MyViewPager
         android:id="@+id/viewpager_main"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />

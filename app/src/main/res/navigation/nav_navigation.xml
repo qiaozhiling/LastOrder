@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_navigation"
+    app:startDestination="@+id/table_navigation_menu">
+
+    <!--id与Menu.xml对应一致-->
+    <fragment
+        android:id="@+id/table_navigation_menu"
+        android:name="com.qzl.lun6.ui.fragment.table.TableFragment"
+        android:label="left"
+        tools:layout="@layout/fragment_table" />
+
+    <fragment
+        android:id="@+id/toolbox_navigation_menu"
+        android:name="com.qzl.lun6.ui.fragment.toolbox.ToolboxFragment"
+        android:label="mid"
+        tools:layout="@layout/fragment_toolbox" />
+
+    <fragment
+        android:id="@+id/my_navigation_menu"
+        android:name="com.qzl.lun6.ui.fragment.my.MyFragment"
+        android:label="right"
+        tools:layout="@layout/fragment_my" />
+
+</navigation>

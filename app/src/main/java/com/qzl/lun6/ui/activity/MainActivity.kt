@@ -7,7 +7,7 @@ import com.qzl.lun6.databinding.ActivityMainBinding
 import com.qzl.lun6.ui.fragment.my.MyFragment
 import com.qzl.lun6.ui.fragment.table.TableFragment
 import com.qzl.lun6.ui.fragment.toolbox.ToolboxFragment
-import com.qzl.lun6.ui.myviews.MyViewPagerAdapter
+import com.qzl.lun6.ui.myviews.myviewpager.MyViewPagerAdapter
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -16,6 +16,7 @@ class MainActivity : AppCompatActivity() {
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
         initView()
 
     }
@@ -27,21 +28,25 @@ class MainActivity : AppCompatActivity() {
 
     private fun setNav() {
 
-        binding.navViewMain.itemIconTintList=null
+        binding.navViewMain.apply {
+            //time 2021/5/30/19:25
+            itemIconTintList = null
+            itemRippleColor = null
+
+            setOnNavigationItemSelectedListener {
+                when (it.itemId) {
+                    R.id.table_navigation_menu -> binding.viewpagerMain.currentItem = 0
+                    R.id.toolbox_navigation_menu -> binding.viewpagerMain.currentItem = 1
+                    R.id.my_navigation_menu -> binding.viewpagerMain.currentItem = 2
+                }
+                return@setOnNavigationItemSelectedListener true
+            }
+        }
 
         binding.viewpagerMain.adapter = MyViewPagerAdapter(supportFragmentManager).apply {
             addFragment(TableFragment())
             addFragment(ToolboxFragment())
             addFragment(MyFragment())
-        }
-
-        binding.navViewMain.setOnNavigationItemSelectedListener {
-            when (it.itemId) {
-                R.id.table_navigation_menu -> binding.viewpagerMain.currentItem = 0
-                R.id.toolbox_navigation_menu -> binding.viewpagerMain.currentItem = 1
-                R.id.my_navigation_menu -> binding.viewpagerMain.currentItem = 2
-            }
-            return@setOnNavigationItemSelectedListener true
         }
     }
 }
