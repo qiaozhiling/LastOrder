@@ -1,4 +1,4 @@
-package com.qzl.lun6.ui
+package com.qzl.lun6.ui.myviews
 
 import android.content.Context
 import android.graphics.Bitmap

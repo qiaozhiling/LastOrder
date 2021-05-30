@@ -15,12 +15,9 @@
         app:labelVisibilityMode="labeled"
         app:menu="@menu/navigation_menu" />
 
-    <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/nav_host_main"
-        android:name="androidx.navigation.fragment.NavHostFragment"
+    <com.qzl.lun6.ui.myviews.MyViewPager
+        android:id="@+id/viewpager_main"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@+id/navView_main"
-        app:defaultNavHost="true"
-        app:navGraph="@navigation/nav_navigation" />
+        android:layout_height="match_parent" />
+
 </RelativeLayout>
