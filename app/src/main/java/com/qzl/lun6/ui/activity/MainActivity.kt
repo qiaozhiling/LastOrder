@@ -1,6 +1,5 @@
 package com.qzl.lun6.ui.activity
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.qzl.lun6.R
 import com.qzl.lun6.databinding.ActivityMainBinding
@@ -9,16 +8,11 @@ import com.qzl.lun6.ui.fragment.table.TableFragment
 import com.qzl.lun6.ui.fragment.toolbox.ToolboxFragment
 import com.qzl.lun6.ui.myviews.myviewpager.MyViewPagerAdapter
 
-class MainActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityMainBinding
+class MainActivity : BaseActivity<ActivityMainBinding>() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-
         initView()
-
     }
 
     private fun initView() {
@@ -27,6 +21,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setNav() {
+
 
         binding.navViewMain.apply {
             //time 2021/5/30/19:25
@@ -49,4 +44,5 @@ class MainActivity : AppCompatActivity() {
             addFragment(MyFragment())
         }
     }
+
 }

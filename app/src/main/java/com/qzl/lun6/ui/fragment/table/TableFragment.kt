@@ -1,14 +1,15 @@
 package com.qzl.lun6.ui.fragment.table
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.qzl.lun6.R
+import com.qzl.lun6.databinding.FragmentTableBinding
+import com.qzl.lun6.ui.fragment.BaseFragment
 
 
-class TableFragment : Fragment() {
+class TableFragment : BaseFragment<FragmentTableBinding>() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

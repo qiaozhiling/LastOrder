@@ -1,19 +1,13 @@
 package com.qzl.lun6.ui.activity
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.qzl.lun6.databinding.ActivityLoginBinding
 
-class LoginActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityLoginBinding
+class LoginActivity : BaseActivity<ActivityLoginBinding>() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        binding = ActivityLoginBinding.inflate(layoutInflater)
-
-        setContentView(binding.root)
 
         DisplayUtils.setStatusBarTextColor(window)
 
@@ -29,7 +23,7 @@ class LoginActivity : AppCompatActivity() {
 
         binding.btmLogin.setOnClickListener {
 
-            if(binding.loginEditGroup.typeFlag) {
+            if (binding.loginEditGroup.typeFlag) {
 
                 val intent = Intent(this, MainActivity::class.java)
                 startActivity(intent)
@@ -38,4 +32,6 @@ class LoginActivity : AppCompatActivity() {
 
 
     }
+
+
 }
