@@ -221,7 +221,6 @@ class QzlViewPagerHolder(mContext: Context, attrs: AttributeSet?, defStyleAttr: 
 
         mPager.setCurrentItem(mid, false)
 
-        Log.i("size", mid.toString())
 
     }
 

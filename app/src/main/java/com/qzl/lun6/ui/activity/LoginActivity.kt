@@ -3,13 +3,14 @@ package com.qzl.lun6.ui.activity
 import android.content.Intent
 import android.os.Bundle
 import com.qzl.lun6.databinding.ActivityLoginBinding
+import com.qzl.lun6.utils.setDarkStatusBarTextColor
 
 class LoginActivity : BaseActivity<ActivityLoginBinding>() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        DisplayUtils.setStatusBarTextColor(window)
+        setDarkStatusBarTextColor()
 
         binding.tvChangeLogin.setOnClickListener {
             if (binding.loginEditGroup.typeFlag) {

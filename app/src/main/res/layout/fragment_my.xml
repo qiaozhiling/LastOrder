@@ -1,10 +1,186 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:theme="@style/Theme.My"
-    tools:context=".ui.fragment.my.MyFragment">
+    android:background="@color/statues_gray"
+    android:orientation="vertical"
+    tools:context=".ui.fragment.my.MyFragment"
+    tools:menu="@menu/my_menu">
 
-</FrameLayout>
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar_my"
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        android:layout_alignParentTop="true"
+        app:title="我的"
+        app:titleTextAppearance="@style/Toolbar.TitleText" />
+
+
+    <RelativeLayout
+        android:id="@+id/rl_userinfo_my"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_below="@+id/toolbar_my"
+        android:padding="20dp">
+
+        <ImageView
+            android:id="@+id/iv_headpic_my"
+            android:layout_width="85dp"
+            android:layout_height="85dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginEnd="15dp"
+            android:contentDescription="头像"
+            android:src="@mipmap/headpic" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/iv_headpic_my"
+            android:layout_alignBottom="@+id/iv_headpic_my"
+            android:layout_toEndOf="@+id/iv_headpic_my"
+            android:gravity="center_vertical"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_username_my"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="7dp"
+                android:text="用户名"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv_sign_my"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="这是一条签名"
+                android:textColor="@color/black"
+                android:textSize="12sp" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardview_my"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/rl_userinfo_my"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="-50dp"
+        android:layout_marginBottom="-50dp"
+        android:background="@color/white"
+        app:cardCornerRadius="50dp"
+        app:cardElevation="0dp"
+        app:cardMaxElevation="0dp"
+        app:contentPaddingLeft="50dp">
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:overScrollMode="never">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:paddingStart="20dp"
+                android:paddingTop="15dp"
+                android:paddingEnd="35dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/tv_collage_my"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="学院"
+                        android:textColor="@color/black"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/tv_stunum_my"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:text="学号"
+                        android:textColor="@color/black"
+                        android:textSize="14sp" />
+
+                </RelativeLayout>
+
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp">
+
+                    <TextView
+                        android:id="@+id/tv_tern_my"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="%s年%s学期"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/tv_week_my"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:text="第%s周"
+                        android:textSize="14sp" />
+
+                </RelativeLayout>
+
+
+                <com.qzl.lun6.ui.myviews.MyItem
+                    android:id="@+id/item_homework_my"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    app:iconPic="@mipmap/homework"
+                    app:infoText="我的作业" />
+
+                <com.qzl.lun6.ui.myviews.MyItem
+                    android:id="@+id/item_note_my"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:iconPic="@mipmap/note"
+                    app:infoText="备忘录" />
+
+                <com.qzl.lun6.ui.myviews.MyItem
+                    android:id="@+id/item_calendar_my"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:iconPic="@mipmap/calendar"
+                    app:infoText="校历" />
+
+                <com.qzl.lun6.ui.myviews.MyItem
+                    android:id="@+id/item_card_my"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:iconPic="@mipmap/schoolcard"
+                    app:infoText="一卡通" />
+
+                <com.qzl.lun6.ui.myviews.MyItem
+                    android:id="@+id/item_feedback_my"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:iconPic="@mipmap/feedback"
+                    app:infoText="帮助与反馈" />
+
+
+            </LinearLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+
+    </androidx.cardview.widget.CardView>
+
+</RelativeLayout>

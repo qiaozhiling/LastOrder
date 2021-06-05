@@ -1,14 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/statues_gray"
+    android:orientation="vertical"
     tools:context=".ui.fragment.toolbox.ToolboxFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <androidx.appcompat.widget.Toolbar
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="toolbox" />
+        android:layout_height="?actionBarSize"
+        app:title="工具箱"
+        app:titleTextAppearance="@style/Toolbar.TitleText" />
 
-</FrameLayout>
+    <androidx.cardview.widget.CardView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="15dp"
+        app:cardCornerRadius="15dp"
+        app:cardElevation="10dp">
+
+        <com.qzl.lun6.ui.myviews.qzlviewpager.QzlViewPagerHolder
+            android:id="@+id/carousel_toolbox"
+            android:layout_width="match_parent"
+            android:layout_height="110dp"
+            app:indicatorCStyle="@drawable/circle_gray"
+            app:indicatorPosition="mid"
+            app:indicatorStyle="@drawable/circle_white"
+            app:showViewPagerTitle="false"
+            app:switchDelay="3000" />
+
+    </androidx.cardview.widget.CardView>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="假装有工具箱"
+        android:src="@mipmap/tools" />
+
+
+</LinearLayout>

@@ -20,6 +20,7 @@
 
     <com.qzl.lun6.ui.myviews.myviewpager.MyViewPager
         android:id="@+id/viewpager_main"
+        android:layout_above="@+id/navView_main"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 

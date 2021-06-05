@@ -7,6 +7,7 @@ import com.qzl.lun6.ui.fragment.my.MyFragment
 import com.qzl.lun6.ui.fragment.table.TableFragment
 import com.qzl.lun6.ui.fragment.toolbox.ToolboxFragment
 import com.qzl.lun6.ui.myviews.myviewpager.MyViewPagerAdapter
+import com.qzl.lun6.utils.setDarkStatusBarTextColor
 
 class MainActivity : BaseActivity<ActivityMainBinding>() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -16,7 +17,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
     }
 
     private fun initView() {
-        DisplayUtils.setStatusBarTextColor(window)
+        setDarkStatusBarTextColor()
         setNav()
     }
 

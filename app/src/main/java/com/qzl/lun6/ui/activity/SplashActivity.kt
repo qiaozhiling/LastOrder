@@ -12,10 +12,10 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>() {
         super.onCreate(savedInstanceState)
 
         lifecycleScope.launch {
-            delay((Math.random() * 1500).toLong())
+            delay((Math.random() * 15).toLong())
             val intent = Intent(this@SplashActivity, LoginActivity::class.java)
-            //startActivity(intent)
-            //this@SplashActivity.finish()
+            startActivity(intent)
+            this@SplashActivity.finish()
         }
     }
 

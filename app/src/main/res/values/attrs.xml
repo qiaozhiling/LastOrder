@@ -24,4 +24,10 @@
         <attr name="titleBarColor" format="color"/>
         <attr name="titleColor" format="color"/>
     </declare-styleable>
+
+    <declare-styleable name="MyItem">
+        <attr name="iconPic" format="reference"/>
+        <attr name="infoText" format="string"/>
+    </declare-styleable>
+
 </resources>

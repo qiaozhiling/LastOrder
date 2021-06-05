@@ -29,7 +29,7 @@ class LoginEditGroup(context: Context, attrs: AttributeSet?, defStyleAttr: Int) 
     constructor(context: Context) : this(context, null, 0)
 
     init {
-        val view = LayoutInflater.from(context).inflate(R.layout.login_edit_group, this, true)
+        val view = LayoutInflater.from(context).inflate(R.layout.login_edit_group_layout, this, true)
 
         type = view.findViewById(R.id.tv1_login_group)
         user = view.findViewById(R.id.edit_user_login_group)

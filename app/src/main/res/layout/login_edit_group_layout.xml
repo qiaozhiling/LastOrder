@@ -19,11 +19,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="综合性最强的福大校内APP"
-        android:textColor="@color/hintGray" />
+        android:textColor="@color/hint_gray" />
 
     <EditText
         android:textSize="16sp"
-        android:textColorHint="@color/hintGray"
+        android:textColorHint="@color/hint_gray"
         android:id="@+id/edit_user_login_group"
         android:layout_width="match_parent"
         android:layout_height="50dp"
@@ -36,7 +36,7 @@
 
     <EditText
         android:textSize="16sp"
-        android:textColorHint="@color/hintGray"
+        android:textColorHint="@color/hint_gray"
         android:id="@+id/edit_paswd_login_group"
         android:layout_width="match_parent"
         android:layout_height="50dp"
@@ -56,7 +56,8 @@
         android:orientation="horizontal">
 
         <EditText
-            android:textColorHint="@color/hintGray"
+            android:textSize="16sp"
+            android:textColorHint="@color/hint_gray"
             android:id="@+id/edit_code_login_group"
             android:layout_width="0dp"
             android:layout_height="50dp"
