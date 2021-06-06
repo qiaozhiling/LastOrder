@@ -1,6 +1,5 @@
 package com.qzl.lun6.utils
 
-
 import android.app.Activity
 import android.content.Context
 import android.os.Build

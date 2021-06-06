@@ -2,6 +2,7 @@ package com.qzl.lun6.ui.fragment.my
 
 import android.os.Bundle
 import android.view.*
+import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
 import com.qzl.lun6.R
 import com.qzl.lun6.databinding.FragmentMyBinding
@@ -15,13 +16,13 @@ class MyFragment : BaseFragment<FragmentMyBinding>() {
         super.onCreateOptionsMenu(menu, inflater)
         menu.clear()
         inflater.inflate(R.menu.my_menu, menu)
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         (activity as AppCompatActivity).setSupportActionBar(binding.toolbarMy)
-
 
     }
 
