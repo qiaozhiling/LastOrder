@@ -2,4 +2,12 @@
 <resources>
     <dimen name="cardview_radius">50dp</dimen>
     <dimen name="cardview_radius_m">-50dp</dimen>
+
+
+    <dimen name="table_cell_height">52dp</dimen>
+    <dimen name="table_week_text">12sp</dimen>
+    <dimen name="table_main_text">11sp</dimen>
+    <dimen name="table_main_table_margin">10dp</dimen>
+    <dimen name="table_date_number_text">18sp</dimen>
+    <dimen name="table_date_number_margin">5dp</dimen>
 </resources>

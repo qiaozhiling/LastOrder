@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/linearLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/shadow"
+    android:orientation="horizontal">
+
+    <TextView
+        android:gravity="center_horizontal"
+        android:id="@+id/month_date_item"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/table_cell_height"
+        android:layout_weight="0.7"
+        android:paddingStart="5dp"
+        android:paddingEnd="0dp"
+        android:text="x\n月"
+        android:textColor="@color/black"
+        android:textSize="@dimen/table_week_text" />
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="@dimen/table_cell_height"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="一"
+            android:textColor="@color/black"
+            android:textSize="@dimen/table_week_text" />
+
+        <TextView
+            android:id="@+id/mon_date_item"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/table_date_number_margin"
+            android:gravity="center_horizontal"
+            android:text="1"
+            android:textColor="@color/black"
+            android:textSize="@dimen/table_date_number_text" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="@dimen/table_cell_height"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="二"
+            android:textColor="@color/black"
+            android:textSize="@dimen/table_week_text" />
+
+
+        <TextView
+            android:id="@+id/tue_date_item"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/table_date_number_margin"
+            android:gravity="center_horizontal"
+            android:text="1"
+            android:textColor="@color/black"
+            android:textSize="@dimen/table_date_number_text" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="@dimen/table_cell_height"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="三"
+            android:textColor="@color/black"
+            android:textSize="@dimen/table_week_text" />
+
+
+        <TextView
+            android:id="@+id/wed_date_item"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/table_date_number_margin"
+            android:gravity="center_horizontal"
+            android:text="1"
+            android:textColor="@color/black"
+            android:textSize="@dimen/table_date_number_text" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="@dimen/table_cell_height"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="四"
+            android:textColor="@color/black"
+            android:textSize="@dimen/table_week_text" />
+
+
+        <TextView
+            android:id="@+id/thur_date_item"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/table_date_number_margin"
+            android:gravity="center_horizontal"
+            android:text="1"
+            android:textColor="@color/black"
+            android:textSize="@dimen/table_date_number_text" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="@dimen/table_cell_height"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="五"
+            android:textColor="@color/black"
+            android:textSize="@dimen/table_week_text" />
+
+
+        <TextView
+            android:id="@+id/fri_date_item"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/table_date_number_margin"
+            android:gravity="center_horizontal"
+            android:text="1"
+            android:textColor="@color/black"
+            android:textSize="@dimen/table_date_number_text" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="@dimen/table_cell_height"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="六"
+            android:textColor="@color/black"
+            android:textSize="@dimen/table_week_text" />
+
+
+        <TextView
+            android:id="@+id/sat_date_item"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/table_date_number_margin"
+            android:gravity="center_horizontal"
+            android:text="1"
+            android:textColor="@color/black"
+            android:textSize="@dimen/table_date_number_text" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="@dimen/table_cell_height"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="日"
+            android:textColor="@color/black"
+            android:textSize="@dimen/table_week_text" />
+
+
+        <TextView
+            android:id="@+id/sun_date_item"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/table_date_number_margin"
+            android:gravity="center_horizontal"
+            android:text="1"
+            android:textColor="@color/black"
+            android:textSize="@dimen/table_date_number_text" />
+
+    </LinearLayout>
+
+</LinearLayout>
