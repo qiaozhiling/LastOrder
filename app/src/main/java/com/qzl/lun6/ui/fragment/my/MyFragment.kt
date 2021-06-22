@@ -11,18 +11,17 @@ import com.qzl.lun6.utils.setStatusBarColor
 
 class MyFragment : BaseFragment<FragmentMyBinding>() {
 
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+    /*override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
         menu.clear()
         inflater.inflate(R.menu.my_menu, menu)
-
-    }
+    }*/
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        (activity as AppCompatActivity).setSupportActionBar(binding.toolbarMy)
-
+        //(activity as AppCompatActivity).setSupportActionBar(binding.toolbarMy)
+        binding.toolbarMy.inflateMenu(R.menu.my_menu)
     }
 
     override fun onResume() {

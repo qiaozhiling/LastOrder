@@ -1,4 +1,4 @@
-package com.qzl.mapplicationdiyview.qzltableview
+package com.qzl.lun6.ui.myviews.qzltableview
 
 import android.content.Context
 import android.graphics.Color
@@ -11,17 +11,20 @@ import android.widget.RelativeLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.cardview.widget.CardView
+import androidx.core.view.children
 import androidx.recyclerview.widget.RecyclerView
 import com.qzl.lun6.R
 import com.qzl.lun6.logic.model.course.Course
 import com.qzl.lun6.logic.model.course.TP
+import com.qzl.lun6.utils.log
+import java.util.*
 
 
 /**
  * TODO
  * @param count 周数
  */
-class TableMainAdapter() :
+class TableMainAdapter :
     RecyclerView.Adapter<TableMainAdapter.Holder>() {
 
     inner class Holder(itemView: View, val context: Context) :
@@ -40,24 +43,31 @@ class TableMainAdapter() :
         val tableMainTextSize: Float = context.resources.getDimension(R.dimen.table_main_text)
     }
 
-    private var count: Int = 0
+    private var dates: List<Calendar> = listOf()
 
-    private var courseList: List<Course>? = null
+    private var courseList: List<Course> = listOf()
 
-    fun setData(count: Int, courseList: List<Course>?) {
-        this.count = count
+    fun setData(dates: List<Calendar>, courseList: List<Course>) {
+        this.dates = dates
         this.courseList = courseList
         notifyDataSetChanged()
     }
 
     private val colorList = listOf(
-        Color.rgb(139, 69, 19),
-        Color.rgb(255, 99, 71),
+        Color.rgb(210, 99, 71),
         Color.rgb(135, 206, 250),
+        Color.rgb(139, 69, 19),
         Color.rgb(147, 112, 219),
-        Color.rgb(255, 222, 219),
+        Color.rgb(230, 140, 0),
+        Color.rgb(160, 82, 45),
+        Color.rgb(204, 153, 204),
+        Color.rgb(68, 118, 216),
+        Color.rgb(95, 158, 160),
         Color.rgb(175, 238, 173)
     )
+    private val whiteColor = Color.rgb(255, 255, 255)
+    private val lightGrayColor = Color.rgb(220, 220, 220)
+    private val deepGrayColor = Color.rgb(128, 128, 128)
 
     //显示所有课程 包括本周不上的
     private var showAll = true
@@ -66,7 +76,7 @@ class TableMainAdapter() :
             notifyDataSetChanged()
         }
 
-    override fun getItemCount(): Int = count
+    override fun getItemCount(): Int = dates.size
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
         val view =
@@ -77,101 +87,133 @@ class TableMainAdapter() :
     }
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
-        //TODO
-        val weeks = position + 1//周数
-        courseList?.let { courseList ->
+        val weeks = position + 1 //当前周数
 
-            for ((index, c) in courseList.withIndex()) {
-
-                val size: Int = colorList.size
-                val backgroundColor = colorList[(courseList.size - index) % size]
-                drawCourse(holder, c, weeks, backgroundColor)
-            }
-
+        holder.week.iterator().forEach {
+            it.removeAllViews()
         }
 
+        //TODO 挑出 这一周 要显示的 所有
+        val courseForWeek = mutableListOf<Pair<Int, TP>>()//课
+        val examForWeek = mutableListOf<Pair<Int, TP>>()//考试
+        val transferForWeek = mutableListOf<Pair<Int, TP>>()//调课
+        val userCourse = mutableListOf<Pair<Int, TP>>()//用户自加课 todo
 
-    }
+        //按tp 挑出课
+        for (index in courseList.indices) {
+            //遍历所有的课（单位/门）
+            val course = courseList[index]
 
-    /**
-     * TODO dialog to make
-     * @param weeks 当前是第几周
-     */
-    private fun drawCourse(
-        holder: TableMainAdapter.Holder,
-        course: Course,
-        weeks: Int,
-        backgroundColor: Int
-    ) {
+            courseForWeek.addAll(course.TP.map {
+                Pair(index, it)
+            })
 
-        val courseName = course.courseName
-        val teacherName = course.teacherName
-        val exam = course.exam
-        val remark = course.remark
-        val transferInfo = course.transferInfo
-
-        //正常上课表
-        course.TP?.let { tps ->
-            for (tp in tps) {
-
-                val sDW = tp.sDW//单双周
-
-                if ((weeks % 2 == sDW || sDW == 2) && weeks in tp.startWeek..tp.endWeek) {
-
-                    draw(
-                        tp,
-                        holder,
-                        courseName,
-                        teacherName,
-                        remark,
-                        backgroundColor,
-                        Color.rgb(255, 255, 255)
-                    )
-
-                } else if (showAll) {
-                    draw(
-                        tp,
-                        holder,
-                        courseName,
-                        teacherName,
-                        remark,
-                        Color.rgb(220, 220, 220),
-                        Color.rgb(128, 128, 128)
-                    )
+            //抓出所有本周考试
+            course.exam.getTP(dates[0])?.let {
+                if (it.isThisWeek(weeks)) {
+                    examForWeek.add(Pair(index, it))
                 }
-
             }
 
+            course.transferInfo.getTP()?.let {
+                if (it.isThisWeek(weeks)) {
+                    transferForWeek.add(Pair(index, it))
+                }
+            }
         }
 
-        exam?.let {
-            val tp = it.data
-            val sDW = tp.sDW//单双周
-            if ((weeks % 2 == sDW || sDW == 2) && weeks in tp.startWeek..tp.endWeek) {
+        val toDelete = mutableListOf<Pair<Int, TP>>()
+        //删除重复的
+        for (c in courseForWeek) {
+            if (!c.second.isThisWeek(weeks)) {
+                //不是这周的课
+                for (b in courseForWeek) {
+                    if (c.second.conflict(b.second) && c.second != b.second) {
+                        //与其他课 存在冲突
+                        toDelete.add(c)
+                    }
+                }
+            }
+        }
 
+        for (c in courseForWeek) {
+            for (b in examForWeek) {
+                if (c.second.conflict(b.second) && c.second != b.second) {
+                    //与考试 存在冲突
+                    toDelete.add(c)
+                }
+            }
+        }
+
+        for (c in courseForWeek) {
+            if (!c.second.isThisWeek(weeks)) {
+                //不是这周的课
+                for (b in transferForWeek) {
+                    if (c.second.conflict(b.second) && c.second != b.second) {
+                        //与调课  存在冲突
+                        toDelete.add(c)
+                    }
+                }
+            }
+        }
+
+        courseForWeek.removeAll(toDelete)
+        /////////////////////////////////开始画
+        for (c in courseForWeek) {
+            val course = courseList[c.first]
+            val color = colorList[c.first % colorList.size]
+
+            if (c.second.isThisWeek(weeks)) {
                 draw(
-                    tp,
+                    c.second,
                     holder,
-                    "[考试]$courseName",
-                    teacherName,
-                    it.detailTime,
-                    backgroundColor,
-                    Color.rgb(255, 255, 255)
+                    course.courseName,
+                    course.teacherName,
+                    course.remark,
+                    color,
+                    whiteColor
+                )
+            } else {
+                draw(
+                    c.second,
+                    holder,
+                    course.courseName,
+                    course.teacherName,
+                    course.remark,
+                    lightGrayColor,
+                    deepGrayColor
                 )
             }
         }
 
-        transferInfo?.let { tp ->
-            val sDW = tp.sDW//单双周
-            if ((weeks % 2 == sDW || sDW == 2) && weeks in tp.startWeek..tp.endWeek) {
+        for (c in examForWeek) {
+            val course = courseList[c.first]
+            val color = colorList[c.first % colorList.size]
+            if (c.second.isThisWeek(weeks)) {
                 draw(
-                    tp,
+                    c.second,
                     holder,
-                    "[调课]$courseName",
-                    teacherName,
-                    "从哪来到哪去",
-                    backgroundColor,
-                    Color.rgb(255, 255, 255)
+                    "[考试]${course.courseName}",
+                    course.teacherName,
+                    course.remark,
+                    color,
+                    whiteColor
+                )
+            }
+        }
+
+        for (c in transferForWeek) {
+            val course = courseList[c.first]
+            val color = colorList[c.first % colorList.size]
+            if (c.second.isThisWeek(weeks)) {
+                draw(
+                    c.second,
+                    holder,
+                    "[调课]${course.courseName}",
+                    course.teacherName,
+                    course.remark,
+                    color,
+                    whiteColor
                 )
             }
         }
@@ -184,7 +226,7 @@ class TableMainAdapter() :
      */
     private fun draw(
         tp: TP,
-        holder: TableMainAdapter.Holder,
+        holder: Holder,
         courseName: String,
         teacherName: String?,
         remark: String?,
@@ -246,8 +288,8 @@ class TableMainAdapter() :
             removeAllViews()
             addView(relativeLayout)
             setOnClickListener {
-                //TODO
-                Toast.makeText(holder.context, courseName, Toast.LENGTH_SHORT).show()
+                //TODO diolog
+                Toast.makeText(holder.context, "$courseName\n$remark", Toast.LENGTH_SHORT).show()
             }
         }
 
@@ -256,4 +298,6 @@ class TableMainAdapter() :
         }
 
     }
+
+
 }

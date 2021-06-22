@@ -1,5 +1,7 @@
 package com.qzl.lun6.ui.myviews.qzltableview
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.viewpager2.widget.ViewPager2
 
 
@@ -9,9 +11,10 @@ class MyOnPageChangeCallback(
 ) :
     ViewPager2.OnPageChangeCallback() {
 
-    private var pos = 0
+    private var _pos = 0
     private var lastOffset = 0f
-
+    private val _currentItem = MutableLiveData<Int>()
+    val currentItem = _currentItem as LiveData<Int>
 
     /**
      * This method will be invoked when the current page is scrolled, either as part
@@ -63,13 +66,14 @@ class MyOnPageChangeCallback(
 
     override fun onPageSelected(position: Int) {
         super.onPageSelected(position)
-        this.pos = position
+        this._pos = position
+        _currentItem.value = position
     }
 
     override fun onPageScrollStateChanged(state: Int) {
 
         if (state == ViewPager2.SCROLL_STATE_IDLE) {
-            linkViewPager.setCurrentItem(pos,false)
+            linkViewPager.setCurrentItem(_pos, false)
         }
     }
 

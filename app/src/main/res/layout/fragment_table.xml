@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -10,7 +10,33 @@
         android:id="@+id/toolbar_table"
         android:layout_width="match_parent"
         android:layout_height="?actionBarSize"
-        app:titleTextAppearance="@style/Toolbar.TitleText"
-        app:title="课程表" />
+        app:title="课程表"
+        app:titleTextAppearance="@style/Toolbar.TitleText">
 
-</FrameLayout>
+        <TextView
+            android:id="@+id/week_indicator_table"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:drawableEnd="@drawable/downward_triangle_layer_list"
+            android:text="第几周"
+            android:textColor="@color/black"
+            android:textSize="16sp" />
+
+    </androidx.appcompat.widget.Toolbar>
+
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipe_table"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/toolbar_table"
+        android:layout_marginTop="16dp">
+
+        <com.qzl.lun6.ui.myviews.qzltableview.TableView
+            android:id="@+id/tableview_table"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+</RelativeLayout>

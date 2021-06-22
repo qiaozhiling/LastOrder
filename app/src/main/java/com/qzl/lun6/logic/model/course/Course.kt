@@ -7,12 +7,14 @@ package com.qzl.lun6.logic.model.course
  * @param exam 考试信息
  * @param transferInfo 调课信息
  * @param remark 备注
+ * @param type 0教务处课程 1用户自加课程
  */
 class Course(
     val courseName: String,
-    val teacherName: String?,
-    val TP: List<TP>?,
-    val exam: Exam?,
-    val transferInfo: TP?,
-    val remark: String?
+    val teacherName: String,
+    val TP: List<TP>,
+    val exam: Exam,
+    val transferInfo: Transfer,
+    val remark: String,
+    val type :Int= 0
 )

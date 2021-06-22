@@ -6,7 +6,6 @@ import com.qzl.lun6.databinding.ActivityMainBinding
 import com.qzl.lun6.ui.fragment.my.MyFragment
 import com.qzl.lun6.ui.fragment.table.TableFragment
 import com.qzl.lun6.ui.fragment.toolbox.ToolboxFragment
-import com.qzl.lun6.ui.myviews.myviewpager.MyViewPagerAdapter
 import com.qzl.lun6.utils.setDarkStatusBarTextColor
 
 class MainActivity : BaseActivity<ActivityMainBinding>() {
@@ -23,6 +22,20 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
 
     private fun setNav() {
 
+        val fragments = listOf(
+            TableFragment(),
+            ToolboxFragment(),
+            MyFragment()
+        )
+
+
+        binding.viewpagerMain.apply {
+            adapter =
+                MainViewPagerAdapter(supportFragmentManager, lifecycle, fragments)
+            isUserInputEnabled = false
+
+        }
+
 
         binding.navViewMain.apply {
             //time 2021/5/30/19:25
@@ -31,19 +44,13 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
 
             setOnNavigationItemSelectedListener {
                 when (it.itemId) {
-                    R.id.table_navigation_menu -> binding.viewpagerMain.currentItem = 0
-                    R.id.toolbox_navigation_menu -> binding.viewpagerMain.currentItem = 1
-                    R.id.my_navigation_menu -> binding.viewpagerMain.currentItem = 2
+                    R.id.table_navigation_menu -> binding.viewpagerMain.setCurrentItem(0, false)
+                    R.id.toolbox_navigation_menu -> binding.viewpagerMain.setCurrentItem(1, false)
+                    R.id.my_navigation_menu -> binding.viewpagerMain.setCurrentItem(2, false)
                 }
                 return@setOnNavigationItemSelectedListener true
             }
         }
 
-        binding.viewpagerMain.adapter = MyViewPagerAdapter(supportFragmentManager).apply {
-            addFragment(TableFragment())
-            addFragment(ToolboxFragment())
-            addFragment(MyFragment())
-        }
     }
-
 }

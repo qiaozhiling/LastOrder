@@ -6,12 +6,12 @@
         android:id="@+id/add_table_menu"
         android:icon="@mipmap/add"
         android:title="添加课程"
-        app:showAsAction="always" />
+        app:showAsAction="ifRoom" />
 
     <item
         android:id="@+id/setting_table_menu"
         android:icon="@mipmap/setting"
         android:title="设置"
-        app:showAsAction="always" />
+        app:showAsAction="ifRoom" />
 
 </menu>

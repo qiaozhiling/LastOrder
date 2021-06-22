@@ -18,7 +18,7 @@
         app:labelVisibilityMode="labeled"
         app:menu="@menu/navigation_menu" />
 
-    <com.qzl.lun6.ui.myviews.myviewpager.MyViewPager
+    <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/viewpager_main"
         android:layout_above="@+id/navView_main"
         android:layout_width="match_parent"

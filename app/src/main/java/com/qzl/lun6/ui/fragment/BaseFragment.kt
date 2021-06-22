@@ -15,7 +15,7 @@ open class BaseFragment<VB : ViewBinding> : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        setHasOptionsMenu(true)
     }
 
     override fun onCreateView(
@@ -23,7 +23,7 @@ open class BaseFragment<VB : ViewBinding> : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        setHasOptionsMenu(true)
+
 
         val type = javaClass.genericSuperclass as ParameterizedType
         val aClass = type.actualTypeArguments[0] as Class<*>
