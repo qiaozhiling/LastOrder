@@ -1,16 +1,23 @@
-package com.qzl.lun6.ui.activity
+package com.qzl.lun6.ui.activity.mainactivity
 
 import android.os.Bundle
 import com.qzl.lun6.R
 import com.qzl.lun6.databinding.ActivityMainBinding
+import com.qzl.lun6.ui.activity.BaseActivity
 import com.qzl.lun6.ui.fragment.my.MyFragment
 import com.qzl.lun6.ui.fragment.table.TableFragment
 import com.qzl.lun6.ui.fragment.toolbox.ToolboxFragment
 import com.qzl.lun6.utils.setDarkStatusBarTextColor
 
 class MainActivity : BaseActivity<ActivityMainBinding>() {
+
+    //private lateinit var viewModel: MainViewModel
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        //viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
+
 
         initView()
     }

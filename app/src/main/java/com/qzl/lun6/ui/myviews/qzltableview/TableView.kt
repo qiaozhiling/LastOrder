@@ -35,7 +35,7 @@ class TableView(context: Context, attrs: AttributeSet?, defStyleAttr: Int) :
 
         mainTable.setPageTransformer(MarginPageTransformer(resources.getDimensionPixelOffset(R.dimen.table_main_table_margin)))//边距
 
-        //绑定两pager
+        //绑定两pager的currentItem同步
         val callback1 = MyOnPageChangeCallback(dateBarPager, mainTable)
         currentItem = callback1.currentItem
         dateBarPager.registerOnPageChangeCallback(callback1)
@@ -43,41 +43,56 @@ class TableView(context: Context, attrs: AttributeSet?, defStyleAttr: Int) :
     }
 
     /**
+     *   绑定date列表和course列表给俩adapter
      *   @param dates:List<这周的第一天>
      */
     fun setData(dates: List<Calendar>, course: List<Course>) {
         dateBarAdapter.dates = dates
         mainAdapter.setData(dates, course)
-
-        val today = Calendar.getInstance()
-
-        val week = (today.get(Calendar.DAY_OF_WEEK) - 1).let {
-            if (it <= 0) {
-                7
-            } else {
-                it
-            }
-        }
-
-        val thisWeek =
-            today.get(Calendar.WEEK_OF_YEAR) - dates[0].get(Calendar.WEEK_OF_YEAR) + if (week == 7) 0 else 1
-
-         dateBarPager.setCurrentItem(
-            if (thisWeek in 1..dates.size) {
-                thisWeek-1
-            } else {
-                0
-            }, false
-        )
-
-        mainTable.setCurrentItem(
-            if (thisWeek in 1..dates.size) {
-                thisWeek-1
-            } else {
-                0
-            }, false
-        )
-
     }
 
+    fun notifyDataChange() {
+        dateBarAdapter.notifyDataSetChanged()
+        mainAdapter.notifyDataSetChanged()
+    }
+
+    // TODO: 2021/6/29 直接显示当前周功能
+    fun setCurrentItem() {
+
+        val dates = dateBarAdapter.dates
+
+        if (dates.isNotEmpty()) {
+
+            val today = Calendar.getInstance()
+
+            val week = (today.get(Calendar.DAY_OF_WEEK) - 1).let {
+                if (it <= 0) {
+                    7
+                } else {
+                    it
+                }
+            }
+
+            val thisWeek =
+                today.get(Calendar.WEEK_OF_YEAR) - dates[0].get(Calendar.WEEK_OF_YEAR) + if (week == 7) 0 else 1
+
+            dateBarPager.setCurrentItem(
+                if (thisWeek in 1..dates.size) {
+                    thisWeek - 1
+                } else {
+                    0
+                }, false
+            )
+
+            mainTable.setCurrentItem(
+                if (thisWeek in 1..dates.size) {
+                    thisWeek - 1
+                } else {
+                    0
+                }, false
+            )
+        }
+
+
+    }
 }

@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <ImageView
+        android:id="@+id/imageView_exit_infodialog"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_marginTop="20dp"
+        android:scaleType="centerInside"
+        android:src="@drawable/gray_cross"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.05"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView_edit_infodialog"
+        android:layout_width="15dp"
+        android:layout_height="15dp"
+        android:scaleType="centerInside"
+        android:src="@mipmap/edit_gray"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView_exit_infodialog"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.95"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/imageView_exit_infodialog"
+        app:layout_constraintVertical_bias="0.025" />
+
+    <TextView
+        android:id="@+id/textview_coursename_infodialog"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="65dp"
+        android:text="数学"
+        android:textColor="@color/appPrimeColor"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout_infodialog"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textview_coursename_infodialog">
+
+        <TextView
+            android:id="@+id/tv1_infodialog"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="地点"
+            android:textSize="@dimen/text_dialog" />
+
+        <TextView
+            android:id="@+id/textview_place_infodialog"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_toEndOf="@+id/tv1_infodialog"
+            android:text=""
+            android:textColor="@color/black"
+            android:textSize="@dimen/text_dialog" />
+
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout3"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/relativeLayout_infodialog">
+
+        <TextView
+            android:id="@+id/tv2_infodialog"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="教师"
+            android:textSize="@dimen/text_dialog" />
+
+        <TextView
+            android:id="@+id/textview_teacher_infodialog"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_toEndOf="@+id/tv2_infodialog"
+            android:text=""
+            android:textColor="@color/black"
+            android:textSize="@dimen/text_dialog" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout2_infodialog"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/relativeLayout3">
+
+        <TextView
+            android:id="@+id/tv3_infodialog"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="节数"
+            android:textSize="@dimen/text_dialog" />
+
+        <TextView
+            android:id="@+id/textview_sections_infodialog"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_toEndOf="@+id/tv3_infodialog"
+            android:text=""
+            android:textColor="@color/black"
+            android:textSize="@dimen/text_dialog" />
+    </RelativeLayout>
+
+
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout4"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/relativeLayout2_infodialog">
+
+        <TextView
+            android:id="@+id/tv4_infodialog"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="周数"
+            android:textSize="@dimen/text_dialog" />
+
+        <TextView
+            android:id="@+id/textview_weeks_infodialog"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_toEndOf="@+id/tv4_infodialog"
+            android:text=""
+            android:textColor="@color/black"
+            android:textSize="@dimen/text_dialog" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout5"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/relativeLayout4">
+
+        <TextView
+            android:id="@+id/tv5_infodialog"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="备注"
+            android:textSize="@dimen/text_dialog" />
+
+        <TextView
+            android:id="@+id/textview_remark_infodialog"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_toEndOf="@+id/tv5_infodialog"
+            android:text=""
+            android:textColor="@color/black"
+            android:textSize="@dimen/text_dialog" />
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/bt_addhomework_infodialog"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:layout_marginBottom="50dp"
+        android:background="@drawable/button_dialog"
+        android:text="添加作业"
+        android:textColor="@color/white"
+        android:textSize="19sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/relativeLayout5" />
+
+
+    <TextView
+        android:id="@+id/textView_show_infodialog"
+        android:layout_width="120dp"
+        android:layout_height="38dp"
+        android:layout_marginTop="50dp"
+        android:background="@drawable/blue_corner"
+        android:drawableStart="@drawable/eye_layer_list"
+        android:drawablePadding="-15dp"
+        android:gravity="center"
+        android:text="显示课程"
+        android:textColor="@color/appPrimeColor"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/bt_addhomework_infodialog"
+        app:layout_constraintTop_toBottomOf="@+id/bt_addhomework_infodialog" />
+
+    <TextView
+        android:id="@+id/textview_delete_infodialog"
+        android:layout_width="120dp"
+        android:layout_height="38dp"
+        android:layout_alignParentEnd="true"
+        android:background="@drawable/gray_stroke"
+        android:drawableStart="@drawable/dustbin_gray_layer_list"
+        android:drawablePadding="-20dp"
+        android:gravity="center"
+        android:text="删除"
+        android:textColor="@color/deeper_gray"
+        app:layout_constraintBottom_toBottomOf="@+id/textView_show_infodialog"
+        app:layout_constraintEnd_toEndOf="@+id/bt_addhomework_infodialog"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textView_show_infodialog"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView_show_infodialog" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

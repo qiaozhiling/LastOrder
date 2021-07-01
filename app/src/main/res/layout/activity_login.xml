@@ -7,8 +7,9 @@
     android:padding="15dp"
     tools:context=".ui.activity.LoginActivity">
 
+
     <com.qzl.lun6.ui.myviews.LoginEditGroup
-        android:id="@+id/loginEditGroup"
+        android:id="@+id/loginEditGroup_login"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -27,20 +28,21 @@
         android:text="登 录"
         android:textColor="@color/white"
         android:textSize="17sp"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/loginEditGroup"
+        app:layout_constraintTop_toBottomOf="@+id/loginEditGroup_login"
         app:layout_constraintVertical_bias="0.1" />
 
     <RelativeLayout
         android:id="@+id/linearLayout_in_group"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         android:paddingStart="4dp"
         android:paddingEnd="4dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btm_login"
         app:layout_constraintVertical_bias="0.05">
@@ -76,5 +78,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btm_login"
         app:layout_constraintVertical_bias="0.97" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

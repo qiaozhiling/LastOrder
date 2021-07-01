@@ -11,4 +11,5 @@
     <color name="hint_gray">#CCCCCC</color>
     <color name="statues_gray">#f8f8f8</color>
     <color name="deeper_gray">#C6C6C6</color>
+    <color name="ap_red">#f64950</color>
 </resources>

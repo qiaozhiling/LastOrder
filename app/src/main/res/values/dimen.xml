@@ -9,4 +9,6 @@
     <dimen name="table_main_table_margin">10dp</dimen>
     <dimen name="table_date_number_text">18sp</dimen>
     <dimen name="table_date_number_margin">5dp</dimen>
+
+    <dimen name="text_dialog">18sp</dimen>
 </resources>

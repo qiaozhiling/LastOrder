@@ -10,7 +10,7 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import com.qzl.lun6.R
-import java.lang.Exception
+import com.qzl.lun6.utils.exception.LoginDataException
 
 class LoginEditGroup(context: Context, attrs: AttributeSet?, defStyleAttr: Int) :
     LinearLayout(context, attrs, defStyleAttr) {
@@ -29,7 +29,8 @@ class LoginEditGroup(context: Context, attrs: AttributeSet?, defStyleAttr: Int) 
     constructor(context: Context) : this(context, null, 0)
 
     init {
-        val view = LayoutInflater.from(context).inflate(R.layout.login_edit_group_layout, this, true)
+        val view =
+            LayoutInflater.from(context).inflate(R.layout.login_edit_group_layout, this, true)
 
         type = view.findViewById(R.id.tv1_login_group)
         user = view.findViewById(R.id.edit_user_login_group)
@@ -40,6 +41,11 @@ class LoginEditGroup(context: Context, attrs: AttributeSet?, defStyleAttr: Int) 
 
     fun setCodeImage(image: Bitmap) {
         codeImageView.setImageBitmap(image)
+        codeImageView.scaleType = ImageView.ScaleType.FIT_CENTER
+    }
+
+    fun setCodeImageOnClick(l: ((View) -> Unit)?) {
+        codeImageView.setOnClickListener(l)
     }
 
     fun changeType() {
@@ -48,15 +54,15 @@ class LoginEditGroup(context: Context, attrs: AttributeSet?, defStyleAttr: Int) 
 
         if (typeFlag) {
             type.text = "本科生登入"
-            user.hint="请输入教务处账号"
-            paswd.hint="请输入教务处密码"
+            user.hint = "请输入教务处账号"
+            paswd.hint = "请输入教务处密码"
             code.visibility = View.VISIBLE
             codeImageView.visibility = View.VISIBLE
 
         } else {
             type.text = "研究生登入"
-            user.hint="请输入研究生院账号"
-            paswd.hint="请输入研究生院密码"
+            user.hint = "请输入研究生院账号"
+            paswd.hint = "请输入研究生院密码"
             code.visibility = View.GONE
             codeImageView.visibility = View.GONE
 
@@ -64,7 +70,7 @@ class LoginEditGroup(context: Context, attrs: AttributeSet?, defStyleAttr: Int) 
     }
 
     /**
-     * @throws Exception 登入数据错误
+     * @throws LoginDataException 登入数据错误
      */
     fun getEditData(): Map<String, String> {
         val dUser = user.text.toString()
@@ -73,14 +79,16 @@ class LoginEditGroup(context: Context, attrs: AttributeSet?, defStyleAttr: Int) 
 
         when {
             dUser == "" -> {
-                throw Exception("学号为空")
+                throw LoginDataException("学号为空")
             }
             dPaswd == "" -> {
-                throw Exception("密码为空")
+                throw LoginDataException("密码为空")
             }
             dCode == "" -> {
-                throw Exception("验证码为空")
+                throw LoginDataException("验证码为空")
             }
+            dUser.length != 9 ->
+                throw LoginDataException("学号长度错误")
             else -> {
                 return mapOf(
                     "user" to dUser,

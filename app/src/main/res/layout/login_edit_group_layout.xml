@@ -22,6 +22,7 @@
         android:textColor="@color/hint_gray" />
 
     <EditText
+        android:text="032005102"
         android:textSize="16sp"
         android:textColorHint="@color/hint_gray"
         android:id="@+id/edit_user_login_group"
@@ -35,6 +36,7 @@
         android:textCursorDrawable="@drawable/edit_cursor" />
 
     <EditText
+        android:text="123456789c"
         android:textSize="16sp"
         android:textColorHint="@color/hint_gray"
         android:id="@+id/edit_paswd_login_group"

@@ -1,0 +1,42 @@
+package com.qzl.lun6.logic.data.database
+
+import androidx.room.TypeConverter
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
+import com.qzl.lun6.logic.model.course.Exam
+import com.qzl.lun6.logic.model.course.TP
+import com.qzl.lun6.logic.model.course.Transfer
+
+
+class CourseConverter {
+
+    @TypeConverter
+    fun stringToExam(value: String): Exam {
+        return Exam(value)
+    }
+
+    @TypeConverter
+    fun examToString(date: Exam): String {
+        return date.origin
+    }
+
+    @TypeConverter
+    fun stringToTransfer(value: String): Transfer {
+        return Transfer(value)
+    }
+
+    @TypeConverter
+    fun transferToString(date: Transfer): String {
+        return date.origin
+    }
+
+    @TypeConverter
+    fun tpsToString(date: List<TP>): String {
+        return Gson().toJson(date)
+    }
+
+    @TypeConverter
+    fun stringToTPs(value: String): List<TP> {
+        return Gson().fromJson(value, object : TypeToken<List<TP>?>() {}.type)
+    }
+}

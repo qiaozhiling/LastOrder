@@ -9,14 +9,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.RelativeLayout
 import android.widget.TextView
-import android.widget.Toast
 import androidx.cardview.widget.CardView
-import androidx.core.view.children
 import androidx.recyclerview.widget.RecyclerView
 import com.qzl.lun6.R
 import com.qzl.lun6.logic.model.course.Course
 import com.qzl.lun6.logic.model.course.TP
-import com.qzl.lun6.utils.log
+import com.qzl.lun6.ui.myviews.InfoDialog
 import java.util.*
 
 
@@ -104,7 +102,7 @@ class TableMainAdapter :
             //遍历所有的课（单位/门）
             val course = courseList[index]
 
-            courseForWeek.addAll(course.TP.map {
+            courseForWeek.addAll(course.TPs.map {
                 Pair(index, it)
             })
 
@@ -128,11 +126,12 @@ class TableMainAdapter :
             if (!c.second.isThisWeek(weeks)) {
                 //不是这周的课
                 for (b in courseForWeek) {
-                    if (c.second.conflict(b.second) && c.second != b.second) {
-                        //与其他课 存在冲突
+                    if (c.second.conflict(b.second) && c.second != b.second && !toDelete.contains(b)) {
+                        //与其他课 存在冲突 且待删除中不包含b
                         toDelete.add(c)
                     }
                 }
+
             }
         }
 
@@ -220,6 +219,7 @@ class TableMainAdapter :
     }
 
     /**
+     * 在表上画一个课程item 并且实现点击显示详情
      * @see Holder.week
      * @param backgroundColor 背景颜色 Color.rgb()
      * @param textColor 字体颜色 Color.rgb()
@@ -288,8 +288,8 @@ class TableMainAdapter :
             removeAllViews()
             addView(relativeLayout)
             setOnClickListener {
-                //TODO diolog
-                Toast.makeText(holder.context, "$courseName\n$remark", Toast.LENGTH_SHORT).show()
+                //TODO dialog
+                InfoDialog(holder.context)
             }
         }
 

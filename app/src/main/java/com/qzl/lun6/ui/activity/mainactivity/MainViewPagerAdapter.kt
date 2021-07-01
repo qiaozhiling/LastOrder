@@ -1,4 +1,4 @@
-package com.qzl.lun6.ui.activity
+package com.qzl.lun6.ui.activity.mainactivity
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager

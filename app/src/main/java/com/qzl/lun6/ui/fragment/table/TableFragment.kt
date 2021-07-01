@@ -1,33 +1,24 @@
 package com.qzl.lun6.ui.fragment.table
 
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.MenuItem
-import android.view.View
-import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.qzl.lun6.R
 import com.qzl.lun6.databinding.FragmentTableBinding
-import com.qzl.lun6.logic.network.AnalyzeUtils
 import com.qzl.lun6.ui.fragment.BaseFragment
 import com.qzl.lun6.utils.setStatusBarColor
 import com.qzl.lun6.utils.toast
-import internet.NetUtils
+import com.qzl.lun6.logic.network.NetUtils
 import kotlinx.coroutines.launch
 
 class TableFragment : BaseFragment<FragmentTableBinding>() {
 
-    /*override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        super.onCreateOptionsMenu(menu, inflater)
-        menu.clear()
-        inflater.inflate(R.menu.table_menu, menu)
-    }*/
+    private val viewModel by lazy { ViewModelProvider(this).get(TableViewModel::class.java) }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
 
-        //(activity as AppCompatActivity).setSupportActionBar(binding.toolbarTable)
+        //菜单点击事件
         binding.toolbarTable.apply {
             inflateMenu(R.menu.table_menu)
             setOnMenuItemClickListener { item ->
@@ -39,23 +30,38 @@ class TableFragment : BaseFragment<FragmentTableBinding>() {
             }
         }
 
-        lifecycleScope.launch {
-            val ca = NetUtils.getXl()
-
-            val dates = AnalyzeUtils.getCalendarFromHtml(ca)
-            val c = AnalyzeUtils.getCourseFromHtml(kc)
-            binding.tableviewTable.setData(dates, c)
-            binding.swipeTable.setOnRefreshListener {
-                binding.swipeTable.isRefreshing = false
-            }
-        }
-
+        //菜单周数显示
         binding.tableviewTable.currentItem.observe(viewLifecycleOwner) {
             val t = "第${it + 1}周"
             binding.weekIndicatorTable.text = t
         }
 
+        //课程数据绑定
+        viewModel.courseListLiveData.observe(viewLifecycleOwner) {
+            viewModel.courseList.clear()
+            viewModel.courseList.addAll(it)
+            binding.tableviewTable.notifyDataChange()
+        }
 
+        //校历数据绑定
+        viewModel.dateListLiveData.observe(viewLifecycleOwner) {
+            viewModel.dateList.clear()
+            viewModel.dateList.addAll(it)
+            binding.tableviewTable.notifyDataChange()
+        }
+
+        //下拉刷新事件
+        binding.swipeTable.setOnRefreshListener {
+            viewModel.getCourse()
+            binding.swipeTable.isRefreshing = false
+        }
+
+        viewModel.getCourse()
+
+        //数据绑定
+        binding.tableviewTable.setData(viewModel.dateList, viewModel.courseList)
+        //设置currentItem为当前周
+        binding.tableviewTable.setCurrentItem()
     }
 
     override fun onResume() {

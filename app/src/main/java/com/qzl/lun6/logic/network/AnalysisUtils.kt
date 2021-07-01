@@ -5,7 +5,6 @@ import com.qzl.lun6.logic.model.course.Exam
 import com.qzl.lun6.logic.model.course.TP
 import com.qzl.lun6.logic.model.course.Transfer
 import com.qzl.lun6.utils.mAdd
-import internet.NetUtils
 import org.jsoup.Jsoup
 import retrofit2.Response
 import java.util.*
@@ -13,12 +12,12 @@ import java.util.regex.Matcher
 import java.util.regex.Pattern
 import kotlin.collections.ArrayList
 
-object AnalyzeUtils {
+object AnalysisUtils {
 
     /**
      * 保存目标id
      */
-    fun <T> saveIDFromResponse(response: Response<T>) {
+    fun saveIDFromResponse(response: Response<String>) {
         val responseInfo = response.raw().toString()
         val id = getBetween(responseInfo, "id=", "&hosturl")
         NetUtils.setID(id)
@@ -28,16 +27,16 @@ object AnalyzeUtils {
      * 提取token
      * var token = "09f7528e-4e79-4993-85e6-2916a9b0c5f3";
      */
-    fun getTokenFromString(str: String): String =
+    fun getTokenFromHtml(str: String): String =
         getBetween(str, "var[ ]token[ ]=[ ]\"", "\"")
 
     /**
-     * 提取Query参数
+     *  提取Query参数
      *  id: String, num: String, ssourl: String, hosturl: String
      */
-    fun getQueryInfo(str: String): Map<String, String> {
+    fun getQueryInfoFromHtml(str: String): Map<String, String> {
         return hashMapOf(
-            "id" to getBetween(str, "id=", "&num"),
+            "id" to getBetween(str, "id=", "&num"),//此处id为临时id
             "num" to getBetween(str, "num=", "&ssourl"),
             "ssourl" to "https://jwcjwxt2.fzu.edu.cn",
             "hosturl" to "https://jwcjwxt2.fzu.edu.cn:81"
@@ -107,7 +106,7 @@ object AnalyzeUtils {
     }
 
     /**
-     * 从get的结果
+     * 从html的结果
      * 返回用户可选学期列表
      */
     fun getUserTernsFromHtm(html: String) {
@@ -124,7 +123,7 @@ object AnalyzeUtils {
 
 
     /**
-     * 从get结果
+     * 从html结果
      * 获得校历可选学期列表
      */
     fun getSchoolScheduleFromHtm(html: String) {
@@ -133,7 +132,7 @@ object AnalyzeUtils {
     }
 
     /**
-     * 从get结果
+     * 从html结果
      * 获得学期校历
      */
     fun getCalendarFromHtml(html: String): List<Calendar> {
@@ -158,9 +157,9 @@ object AnalyzeUtils {
         val d = com.qzl.lun6.utils.getCalendar(year, month, date)
         val dates = mutableListOf<Calendar>()
         dates.add(d)
-        val weekCount = dom.getElementsByTag("tr").filter {
+        val weekCount = 22/*dom.getElementsByTag("tr").filter {
             it.text().startsWith("第")
-        }.size
+        }.size*/
 
         for (i in 1 until weekCount) {
             val d1 = d.mAdd(Calendar.DATE, 7 * i)
@@ -191,6 +190,6 @@ object AnalyzeUtils {
             }
         }
 
-        NetUtils.setLessonPara(map)
+        /*NetUtils..setLessonPara(map)*/
     }
 }

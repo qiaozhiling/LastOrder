@@ -1,8 +1,7 @@
 package internet
 
-import internet.NetUtils.getCookie
+import com.qzl.lun6.logic.network.NetUtils
 import okhttp3.ResponseBody
-import retrofit2.Call
 import retrofit2.Response
 import retrofit2.http.*
 
@@ -25,7 +24,7 @@ interface FzuServer {
     suspend fun loginCheck(
         @FieldMap fieldMap: Map<String, String>,
         //@Header("Cookie") cookie: List<String> = getCookie()
-    ): ResponseBody
+    ): String
 
     /**
      * 3 验证SSOLogin https://jwcjwxt2.fzu.edu.cn/Sfrz/SSOLogin
@@ -43,7 +42,7 @@ interface FzuServer {
      *  4 loginchk_xs https://jwcjwxt2.fzu.edu.cn:81/loginchk_xs.aspx
      */
     @GET("loginchk_xs.aspx")
-    suspend fun loginchk_xs(
+    suspend fun LoginCHK(
         @QueryMap queryMap: Map<String, String>,
         //@HeaderMap map: Map<String, String>
         //@Header("Cookie") cookie: List<String> = getCookie(),
@@ -56,8 +55,8 @@ interface FzuServer {
     @POST("student/xkjg/wdxk/xkjg_list.aspx")
     @FormUrlEncoded
     suspend fun xkjg_list(
-        @FieldMap form: Map<String, String> = mapOf(),
-        @Query("id") id: String = NetUtils.getID()
+        @FieldMap form: Map<String, String>,//不能为null map为empty查询当前学期选课
+        @Query("id") id: String = NetUtils.getID()//真id
         //@HeaderMap headerMap: Map<String, String>
         //@Query("id") id: String = NetUtils.getID()
         //@Header("Cookie") cookie: List<String> = getCookie(),
@@ -70,7 +69,7 @@ interface FzuServer {
     @POST("https://jwcjwxt1.fzu.edu.cn/xl.asp")
     @FormUrlEncoded
     suspend fun xl(
-        @Field("xq") tern: String? = null
+        @Field("xq") tern: String? = null//
     ): ResponseBody
 }
 
