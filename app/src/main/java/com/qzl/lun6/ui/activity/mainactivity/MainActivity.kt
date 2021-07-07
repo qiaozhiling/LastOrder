@@ -1,33 +1,32 @@
 package com.qzl.lun6.ui.activity.mainactivity
 
 import android.os.Bundle
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import com.qzl.lun6.R
 import com.qzl.lun6.databinding.ActivityMainBinding
+import com.qzl.lun6.logic.Repository
 import com.qzl.lun6.ui.activity.BaseActivity
 import com.qzl.lun6.ui.fragment.my.MyFragment
 import com.qzl.lun6.ui.fragment.table.TableFragment
+import com.qzl.lun6.ui.fragment.table.TableViewModel
 import com.qzl.lun6.ui.fragment.toolbox.ToolboxFragment
+import com.qzl.lun6.utils.log
 import com.qzl.lun6.utils.setDarkStatusBarTextColor
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class MainActivity : BaseActivity<ActivityMainBinding>() {
 
     //private lateinit var viewModel: MainViewModel
 
+    val viewModel by lazy { ViewModelProvider(this).get(TableViewModel::class.java) }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        //viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
-
-
-        initView()
-    }
-
-    private fun initView() {
         setDarkStatusBarTextColor()
-        setNav()
-    }
-
-    private fun setNav() {
 
         val fragments = listOf(
             TableFragment(),
@@ -35,6 +34,32 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
             MyFragment()
         )
 
+        setNav(fragments)
+
+
+        lifecycleScope.launch {
+
+            launch {
+                if (Repository.isLogin) {
+                    viewModel.loadData()
+                } else {
+                    //网络请求课
+                    //viewModel.requestData()
+                    Repository.isLogin = true
+                }
+                "setNav".log()
+            }
+        }
+
+
+    }
+
+    override fun onPause() {
+        viewModel.saveData()
+        super.onPause()
+    }
+
+    private fun setNav(fragments: List<Fragment>) {
 
         binding.viewpagerMain.apply {
             adapter =

@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.*
 import com.qzl.lun6.R
 import com.qzl.lun6.databinding.FragmentMyBinding
-import com.qzl.lun6.logic.MyApplication
 import com.qzl.lun6.ui.fragment.BaseFragment
 import com.qzl.lun6.utils.setStatusBarColor
 

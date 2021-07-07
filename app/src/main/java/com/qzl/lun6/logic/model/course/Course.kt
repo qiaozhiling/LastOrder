@@ -17,12 +17,12 @@ import com.qzl.lun6.logic.data.database.CourseConverter
 @Entity
 @TypeConverters(CourseConverter::class)
 class Course(
-    val courseName: String,
-    val teacherName: String,
+    var courseName: String,
+    var teacherName: String,
     val TPs: List<TP>,
     val exam: Exam,
     val transferInfo: Transfer,
-    val remark: String,
+    var remark: String,
     val type: Int = 0
 ) {
     @PrimaryKey(autoGenerate = true)

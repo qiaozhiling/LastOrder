@@ -1,19 +1,20 @@
 package com.qzl.lun6.ui.fragment.table
 
 import android.os.Bundle
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.lifecycleScope
 import com.qzl.lun6.R
 import com.qzl.lun6.databinding.FragmentTableBinding
+import com.qzl.lun6.ui.activity.mainactivity.MainActivity
 import com.qzl.lun6.ui.fragment.BaseFragment
+import com.qzl.lun6.utils.log
 import com.qzl.lun6.utils.setStatusBarColor
 import com.qzl.lun6.utils.toast
-import com.qzl.lun6.logic.network.NetUtils
-import kotlinx.coroutines.launch
+import jsc.kit.wheel.base.WheelItem
+import jsc.kit.wheel.dialog.ColumnWheelDialog
+import java.util.*
 
 class TableFragment : BaseFragment<FragmentTableBinding>() {
 
-    private val viewModel by lazy { ViewModelProvider(this).get(TableViewModel::class.java) }
+    private val viewModel by lazy { (activity as MainActivity).viewModel }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -23,45 +24,88 @@ class TableFragment : BaseFragment<FragmentTableBinding>() {
             inflateMenu(R.menu.table_menu)
             setOnMenuItemClickListener { item ->
                 when (item.itemId) {
-                    R.id.add_table_menu -> "add_table_menu".toast(context!!)
-                    R.id.setting_table_menu -> "setting_table_menu".toast(context!!)
+                    R.id.add_table_menu -> "add_table_menu".toast()
+                    R.id.setting_table_menu -> "setting_table_menu".toast()
                 }
                 return@setOnMenuItemClickListener true
             }
         }
 
-        //菜单周数显示
+        //数据绑定
+        binding.tableviewTable.setData(viewModel.myData.dates, viewModel.myData.courses)
+
+        //菜单周数显示绑定
         binding.tableviewTable.currentItem.observe(viewLifecycleOwner) {
             val t = "第${it + 1}周"
             binding.weekIndicatorTable.text = t
         }
 
-        //课程数据绑定
-        viewModel.courseListLiveData.observe(viewLifecycleOwner) {
-            viewModel.courseList.clear()
-            viewModel.courseList.addAll(it)
-            binding.tableviewTable.notifyDataChange()
-        }
-
-        //校历数据绑定
-        viewModel.dateListLiveData.observe(viewLifecycleOwner) {
-            viewModel.dateList.clear()
-            viewModel.dateList.addAll(it)
-            binding.tableviewTable.notifyDataChange()
+        //周数显示点击事件
+        binding.weekIndicatorTable.setOnClickListener {
+            showWheel()
         }
 
         //下拉刷新事件
         binding.swipeTable.setOnRefreshListener {
-            viewModel.getCourse()
+            viewModel.requestData()
+        }
+
+        //显示当前周
+        binding.tableviewTable.setCurrentItem()
+
+        // 数据监听绑定
+        // TODO: 2021/7/6 绑定时会触发请求？？？？？？
+        viewModel.myDataLiveData.observe(viewLifecycleOwner) {
+            val myData = it.getOrNull()
+
+            if (myData != null) {
+                viewModel.myData.courses.apply {
+                    clear()
+                    addAll(myData.courses)
+                }
+                viewModel.myData.dates.apply {
+                    clear()
+                    addAll(myData.dates)
+                }
+
+                binding.tableviewTable.notifyDataChange()
+                "获取课程成功".toast()
+            } else {
+                it.exceptionOrNull()?.printStackTrace()
+                "获取课程失败，显示本地缓存".toast()
+            }
+
             binding.swipeTable.isRefreshing = false
         }
 
-        viewModel.getCourse()
+        /* //课程数据绑定
+         viewModel.courseListLiveData.observe(viewLifecycleOwner) { result ->
+             val courses = (result as Result<List<Course>>).getOrNull()
+             if (courses != null) {
+                 viewModel.courseList.clear()
+                 viewModel.courseList.addAll(courses)
+                 //binding.tableviewTable.notifyDataChange()
+                 "获取课程成功".toast()
+             } else {
+                 result.exceptionOrNull()?.printStackTrace()
+                 "获取课程失败".toast()
+             }
+         }
 
-        //数据绑定
-        binding.tableviewTable.setData(viewModel.dateList, viewModel.courseList)
-        //设置currentItem为当前周
-        binding.tableviewTable.setCurrentItem()
+         //校历数据绑定
+         viewModel.dateListLiveData.observe(viewLifecycleOwner) {
+             val dates = (it as Result<List<Calendar>>).getOrNull()
+             if (dates != null) {
+                 viewModel.dateList.clear()
+                 viewModel.dateList.addAll(dates)
+                 binding.tableviewTable.notifyDataChange()
+
+             } else {
+                 "刷新失败,获取日期失败".toast()
+                 it.exceptionOrNull()?.printStackTrace()
+             }
+             binding.swipeTable.isRefreshing = false//取消刷新动画
+         }*/
     }
 
     override fun onResume() {
@@ -69,6 +113,35 @@ class TableFragment : BaseFragment<FragmentTableBinding>() {
         setStatusBarColor(R.color.white)
     }
 
+    private fun showWheel() {
+
+        val dialog: ColumnWheelDialog<WheelItem, WheelItem, WheelItem, WheelItem, WheelItem> =
+            ColumnWheelDialog(context!!)
+        dialog.show()
+        dialog.setTitle("选择菜单")
+        dialog.setCancelButton("取消", null)
+        dialog.setOKButton("确定") { _, item0, _, _, _, _ ->
+            val a = item0!!.showText.replace(Regex("[第周]"), "").toInt()
+            binding.tableviewTable.setCurrentItem(a)
+            false
+        }
+
+        dialog.setItems(
+            initItems(),
+            null,
+            null,
+            null,
+            null
+        )
+    }
+
+    private fun initItems(): Array<WheelItem?> {
+        val items = arrayOfNulls<WheelItem>(22)
+        for (i in 0..21) {
+            items[i] = WheelItem("第${i}周")
+        }
+        return items
+    }
 
     val kc =
         "\n" +

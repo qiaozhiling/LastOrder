@@ -92,19 +92,24 @@ class TableMainAdapter :
         }
 
         //TODO 挑出 这一周 要显示的 所有
-        val courseForWeek = mutableListOf<Pair<Int, TP>>()//课
+        val coursesForWeek = mutableListOf<Pair<Int, TP>>()//课
+        val coursesNotThisWeek = mutableListOf<Pair<Int, TP>>()//非本周课
         val examForWeek = mutableListOf<Pair<Int, TP>>()//考试
         val transferForWeek = mutableListOf<Pair<Int, TP>>()//调课
-        val userCourse = mutableListOf<Pair<Int, TP>>()//用户自加课 todo
+        val userCourse = mutableListOf<Pair<Int, TP>>()//用户自加课
 
         //按tp 挑出课
         for (index in courseList.indices) {
             //遍历所有的课（单位/门）
             val course = courseList[index]
 
-            courseForWeek.addAll(course.TPs.map {
-                Pair(index, it)
-            })
+            //挑出所有本周上的课
+            coursesForWeek.addAll(course.TPs.filter { it.isThisWeek(weeks) }
+                .map { Pair(index, it) })
+
+            //挑出所有非本周课
+            coursesNotThisWeek.addAll(course.TPs.filter { !it.isThisWeek(weeks) }
+                .map { Pair(index, it) })
 
             //抓出所有本周考试
             course.exam.getTP(dates[0])?.let {
@@ -113,6 +118,7 @@ class TableMainAdapter :
                 }
             }
 
+            //抓出本周所有调课
             course.transferInfo.getTP()?.let {
                 if (it.isThisWeek(weeks)) {
                     transferForWeek.add(Pair(index, it))
@@ -121,58 +127,89 @@ class TableMainAdapter :
         }
 
         val toDelete = mutableListOf<Pair<Int, TP>>()
-        //删除重复的
-        for (c in courseForWeek) {
-            if (!c.second.isThisWeek(weeks)) {
-                //不是这周的课
-                for (b in courseForWeek) {
-                    if (c.second.conflict(b.second) && c.second != b.second && !toDelete.contains(b)) {
-                        //与其他课 存在冲突 且待删除中不包含b
-                        toDelete.add(c)
-                    }
-                }
 
+        //删除与本周课冲突的非本周课
+        for (courseNot in coursesNotThisWeek) {
+            //不是这周的课
+            for (courseIs in coursesForWeek) {
+                if (courseIs.second.conflict(courseNot.second)) {
+                    //与其他课 存在冲突 且待删除中不包含courseNot
+                    toDelete.add(courseNot)
+                }
             }
         }
+        coursesNotThisWeek.removeAll(toDelete)
+        toDelete.clear()
 
-        for (c in courseForWeek) {
+        //本周课与考试冲突
+        for (courseIs in coursesForWeek) {
             for (b in examForWeek) {
-                if (c.second.conflict(b.second) && c.second != b.second) {
+                if (courseIs.second.conflict(b.second) && courseIs.second != b.second) {
                     //与考试 存在冲突
-                    toDelete.add(c)
+                    toDelete.add(courseIs)
                 }
             }
         }
+        coursesForWeek.removeAll(toDelete)
+        toDelete.clear()
 
-        for (c in courseForWeek) {
-            if (!c.second.isThisWeek(weeks)) {
-                //不是这周的课
-                for (b in transferForWeek) {
-                    if (c.second.conflict(b.second) && c.second != b.second) {
-                        //与调课  存在冲突
-                        toDelete.add(c)
-                    }
+        //非本周课与考试冲突
+        for (courseNot in coursesNotThisWeek) {
+            for (b in examForWeek) {
+                if (courseNot.second.conflict(b.second) && courseNot.second != b.second) {
+                    //与考试 存在冲突
+                    toDelete.add(courseNot)
                 }
             }
         }
+        coursesNotThisWeek.removeAll(toDelete)
+        toDelete.clear()
 
-        courseForWeek.removeAll(toDelete)
+        //本周课与调课冲突
+        for (courseIs in coursesForWeek) {
+            for (b in transferForWeek) {
+                if (courseIs.second.conflict(b.second) && courseIs.second != b.second) {
+                    //与调课  存在冲突
+                    toDelete.add(courseIs)
+                }
+            }
+        }
+        coursesForWeek.removeAll(toDelete)
+        toDelete.clear()
+
+        //非周课与调课冲突
+        for (courseNot in coursesNotThisWeek) {
+            for (b in transferForWeek) {
+                if (courseNot.second.conflict(b.second) && courseNot.second != b.second) {
+                    //与调课  存在冲突
+                    toDelete.add(courseNot)
+                }
+            }
+        }
+        coursesNotThisWeek.removeAll(toDelete)
+
+
         /////////////////////////////////开始画
-        for (c in courseForWeek) {
+        //本周课
+        for (c in coursesForWeek) {
             val course = courseList[c.first]
             val color = colorList[c.first % colorList.size]
+            draw(
+                c.second,
+                holder,
+                course.courseName,
+                course.teacherName,
+                course.remark,
+                color,
+                whiteColor
+            )
 
-            if (c.second.isThisWeek(weeks)) {
-                draw(
-                    c.second,
-                    holder,
-                    course.courseName,
-                    course.teacherName,
-                    course.remark,
-                    color,
-                    whiteColor
-                )
-            } else {
+        }
+
+        //非本周课
+        if (showAll) {
+            for (c in coursesNotThisWeek) {
+                val course = courseList[c.first]
                 draw(
                     c.second,
                     holder,
@@ -182,6 +219,7 @@ class TableMainAdapter :
                     lightGrayColor,
                     deepGrayColor
                 )
+
             }
         }
 
@@ -289,7 +327,13 @@ class TableMainAdapter :
             addView(relativeLayout)
             setOnClickListener {
                 //TODO dialog
-                InfoDialog(holder.context)
+                InfoDialog(
+                    holder.context,
+                    tp,
+                    courseName,
+                    teacherName,
+                    remark
+                ).show()
             }
         }
 

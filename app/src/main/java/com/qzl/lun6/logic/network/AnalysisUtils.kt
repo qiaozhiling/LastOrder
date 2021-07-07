@@ -1,5 +1,6 @@
 package com.qzl.lun6.logic.network
 
+import com.qzl.lun6.logic.Repository
 import com.qzl.lun6.logic.model.course.Course
 import com.qzl.lun6.logic.model.course.Exam
 import com.qzl.lun6.logic.model.course.TP
@@ -20,7 +21,7 @@ object AnalysisUtils {
     fun saveIDFromResponse(response: Response<String>) {
         val responseInfo = response.raw().toString()
         val id = getBetween(responseInfo, "id=", "&hosturl")
-        NetUtils.setID(id)
+        Repository.id = id
     }
 
     /**
@@ -43,6 +44,20 @@ object AnalysisUtils {
         )
     }
 
+    // 从选课html中获得该学期
+    fun getCurrentTerm(html: String): String {
+        val dom = Jsoup.parse(html)
+        val options = dom.getElementsByTag("option")
+        //202101 202001 202001
+        return try {
+            options.filter {
+                it.attr("selected") == "selected"
+            }[0].`val`()
+        } catch (e: IndexOutOfBoundsException) {
+            options[0].`val`()
+        }
+
+    }
 
     /**
      * 返回A B串中间内容
@@ -135,20 +150,19 @@ object AnalysisUtils {
      * 从html结果
      * 获得学期校历
      */
-    fun getCalendarFromHtml(html: String): List<Calendar> {
+    fun getCalendarFromHtml(html: String, yearCode: String): List<Calendar> {
         val dom = Jsoup.parse(html)
-        //201802 20190225 20190705
+        //yearCode 202001 202002
         val options = dom.getElementsByTag("option")
 
-        val tern =
+        val tern =  //201802 20190225 20190705
             try {
                 options.filter {
-                    it.attr("selected") == "selected"
+                    it.text() == yearCode
                 }[0].`val`()
             } catch (e: IndexOutOfBoundsException) {
                 options[0].`val`()
             }
-
 
         val year = tern.substring(6, 10).toInt()
         val month = tern.substring(10, 12).toInt() - 1
@@ -175,7 +189,7 @@ object AnalysisUtils {
      * __VIEWSTATEGENERATOR
      * __VIEWSTATE
      */
-    fun getParasFromHtml(html: String) {
+    fun getParasFromHtml(html: String): Map<String, String> {
 
         val map = mutableMapOf<String, String>()
 
@@ -190,6 +204,6 @@ object AnalysisUtils {
             }
         }
 
-        /*NetUtils..setLessonPara(map)*/
+       return map
     }
 }

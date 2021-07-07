@@ -1,11 +1,15 @@
 package com.qzl.lun6.logic.network
 
 
+import com.qzl.lun6.logic.Repository
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import okhttp3.*
 import retrofit2.Retrofit
 import retrofit2.converter.scalars.ScalarsConverterFactory
 import java.util.*
 import java.util.concurrent.TimeUnit
+import kotlin.collections.HashMap
 
 
 object ServerCreator {
@@ -29,12 +33,7 @@ object ServerCreator {
     //CookieJar是用于保存Cookie的
     internal class LocalCookieJar : CookieJar {
 
-        private val cookieStore = HashMap<String, MutableList<Cookie>>()
-
-        init {
-            // TODO: 2021/6/29 从本地活得cookie
-        }
-
+        private val cookieStore: HashMap<String, MutableList<Cookie>> = Repository.loadCookie()
 
         override fun loadForRequest(arg0: HttpUrl): List<Cookie> {
             val cookies = cookieStore[arg0.host()]
@@ -55,7 +54,10 @@ object ServerCreator {
                 cookieStore[arg0.host()]!!.addAll(cookies)
             }
 
-            // TODO: 2021/6/29 把cookie存到本地
+            GlobalScope.launch {
+                // TODO: 2021/6/29 把cookie存到本地
+                Repository.saveCookie(cookieStore)
+            }
 
         }
     }

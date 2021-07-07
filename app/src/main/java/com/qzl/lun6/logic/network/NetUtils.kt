@@ -18,16 +18,6 @@ import java.util.*
 
 
 object NetUtils {
-
-    ///真id
-    private var ID: String = ""
-
-    fun setID(id: String?) {
-        ID = id ?: ID
-    }
-
-    fun getID() = ID
-
     ///用户学期
     private var USER_TERMS: List<String>? = null
 

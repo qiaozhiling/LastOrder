@@ -41,7 +41,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>() {
 
                             binding.btmLogin.text = "正 在 登 录 中..."
 
-                            val intent = Intent(this@LoginActivity, MainActivity::class.java)
+                            val mIntent = Intent(this@LoginActivity, MainActivity::class.java)
 
                             val loginData = binding.loginEditGroupLogin.getEditData()
                             //数据已有空判断
@@ -53,13 +53,13 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>() {
 
 
                             //登入成功跳转
-                            startActivity(intent)
+                            startActivity(mIntent)
                             this@LoginActivity.finish()
 
                         } catch (e: Exception) {
                             when {
                                 (e is NetException) || (e is LoginDataException) -> {
-                                    e.message?.toastInScope(this@LoginActivity)
+                                    e.message?.toastInScope()
                                 }//其他问题闪退
                             }
                         } finally {
@@ -96,7 +96,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>() {
             } catch (e: Exception) {
                 when {
                     (e is NetException) || (e is LoginDataException) -> {
-                        e.message?.toastInScope(this@LoginActivity)
+                        e.message?.toastInScope()
                     }
                 }
             }

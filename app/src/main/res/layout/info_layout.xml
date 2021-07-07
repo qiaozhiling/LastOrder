@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:padding="5dp"
     android:layout_height="match_parent">
 
 
@@ -10,7 +11,7 @@
         android:id="@+id/imageView_exit_infodialog"
         android:layout_width="25dp"
         android:layout_height="25dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="15dp"
         android:scaleType="centerInside"
         android:src="@drawable/gray_cross"
         app:layout_constraintEnd_toEndOf="parent"
@@ -32,13 +33,14 @@
         app:layout_constraintVertical_bias="0.025" />
 
     <TextView
+        android:gravity="center"
         android:id="@+id/textview_coursename_infodialog"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="65dp"
         android:text="数学"
         android:textColor="@color/appPrimeColor"
-        android:textSize="20sp"
+        android:textSize="17sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"

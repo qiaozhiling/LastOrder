@@ -65,6 +65,7 @@
             android:layout_height="50dp"
             android:layout_weight="1"
             android:autofillHints=""
+            android:text="1"
             android:background="@drawable/edit_background"
             android:hint="请输入验证码 "
             android:inputType="number" />

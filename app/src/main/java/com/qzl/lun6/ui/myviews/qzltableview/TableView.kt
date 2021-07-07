@@ -9,6 +9,7 @@ import androidx.viewpager2.widget.MarginPageTransformer
 import androidx.viewpager2.widget.ViewPager2
 import com.qzl.lun6.R
 import com.qzl.lun6.logic.model.course.Course
+import com.qzl.lun6.utils.log
 import java.util.*
 
 class TableView(context: Context, attrs: AttributeSet?, defStyleAttr: Int) :
@@ -51,14 +52,19 @@ class TableView(context: Context, attrs: AttributeSet?, defStyleAttr: Int) :
         mainAdapter.setData(dates, course)
     }
 
+    private var counter = 0
+
     fun notifyDataChange() {
         dateBarAdapter.notifyDataSetChanged()
         mainAdapter.notifyDataSetChanged()
+        if (counter == 0) {
+            setCurrentItem()
+        }
+
     }
 
     // TODO: 2021/6/29 直接显示当前周功能
     fun setCurrentItem() {
-
         val dates = dateBarAdapter.dates
 
         if (dates.isNotEmpty()) {
@@ -77,7 +83,7 @@ class TableView(context: Context, attrs: AttributeSet?, defStyleAttr: Int) :
                 today.get(Calendar.WEEK_OF_YEAR) - dates[0].get(Calendar.WEEK_OF_YEAR) + if (week == 7) 0 else 1
 
             dateBarPager.setCurrentItem(
-                if (thisWeek in 1..dates.size) {
+                if (thisWeek in 1..22) {
                     thisWeek - 1
                 } else {
                     0
@@ -85,14 +91,33 @@ class TableView(context: Context, attrs: AttributeSet?, defStyleAttr: Int) :
             )
 
             mainTable.setCurrentItem(
-                if (thisWeek in 1..dates.size) {
+                if (thisWeek in 1..22) {
                     thisWeek - 1
                 } else {
                     0
                 }, false
             )
+
+            counter = 1
         }
 
+    }
 
+    fun setCurrentItem(thisWeek: Int) {
+        dateBarPager.setCurrentItem(
+            if (thisWeek in 1..22) {
+                thisWeek - 1
+            } else {
+                0
+            }, false
+        )
+
+        mainTable.setCurrentItem(
+            if (thisWeek in 1..22) {
+                thisWeek - 1
+            } else {
+                0
+            }, false
+        )
     }
 }

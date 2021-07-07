@@ -10,11 +10,11 @@ import com.qzl.lun6.logic.model.course.Course
 interface CourseDao {
     //增
     @Insert
-    suspend fun dLPicInsert(course: Course): Long//返回生成的主键
+    suspend fun insertCourse(course: Course): Long//返回生成的主键
 
     //查全部
-    @Query("select * from Course")//查找所有DownloadPic
-    suspend fun loadAllCourse(): List<Course>//返回所有DownloadPic的列表
+    @Query("select * from Course")//Course
+    suspend fun loadAllCourse(): List<Course>//返回所有Course的列表
 
     //删全部
     @Query("delete from Course")

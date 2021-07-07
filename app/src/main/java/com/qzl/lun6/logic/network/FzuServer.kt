@@ -1,6 +1,6 @@
 package internet
 
-import com.qzl.lun6.logic.network.NetUtils
+import com.qzl.lun6.logic.Repository
 import okhttp3.ResponseBody
 import retrofit2.Response
 import retrofit2.http.*
@@ -56,7 +56,7 @@ interface FzuServer {
     @FormUrlEncoded
     suspend fun xkjg_list(
         @FieldMap form: Map<String, String>,//不能为null map为empty查询当前学期选课
-        @Query("id") id: String = NetUtils.getID()//真id
+        @Query("id") id: String = Repository.id//真id
         //@HeaderMap headerMap: Map<String, String>
         //@Query("id") id: String = NetUtils.getID()
         //@Header("Cookie") cookie: List<String> = getCookie(),

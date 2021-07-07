@@ -1,14 +1,12 @@
 package com.qzl.lun6.ui.activity
 
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.qzl.lun6.R
-import com.qzl.lun6.databinding.ActivityTableSettingBinding
 
-class TableSettingActivity : BaseActivity<ActivityTableSettingBinding>() {
+class AddCourseActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        binding
-
+        setContentView(R.layout.activity_add_course)
     }
 }

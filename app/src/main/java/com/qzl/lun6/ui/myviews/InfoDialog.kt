@@ -6,9 +6,18 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import com.qzl.lun6.R
+import com.qzl.lun6.logic.model.course.TP
+import com.qzl.lun6.ui.myviews.qzltableview.TableMainAdapter
 
 
-class InfoDialog(context: Context, val style: Int = 3) :
+class InfoDialog(
+    context: Context,
+    tpT: TP,
+    courseNameT: String,
+    teacherNameT: String?,
+    remarkT: String?,
+    val style: Int = 3
+) :
     AlertDialog(context) {
 
     private val courseName: TextView
@@ -34,14 +43,24 @@ class InfoDialog(context: Context, val style: Int = 3) :
             exit = findViewById(R.id.imageView_exit_infodialog)
         }
 
+        place.text = tpT.place
+        courseName.text = courseNameT
+        teacher.text = teacherNameT
+        sections.text = "${tpT.startSection}-${tpT.endSection}"
+        weeks.text = "${tpT.startWeeks}-${tpT.endWeeks}"
+        remark.text = remarkT
+
         this.setView(view)
 
         exit.setOnClickListener {
             dismiss()
         }
 
-        //setEditAble()
-        show()
+        if (style == 1) {
+            setEditAble()
+        }
+
+
     }
 
     private val EXAM = 1
