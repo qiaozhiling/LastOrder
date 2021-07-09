@@ -51,7 +51,6 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>() {
                                 loginData["code"]!!
                             )
 
-
                             //登入成功跳转
                             startActivity(mIntent)
                             this@LoginActivity.finish()

@@ -104,8 +104,11 @@ class TableMainAdapter :
             val course = courseList[index]
 
             //挑出所有本周上的课
-            coursesForWeek.addAll(course.TPs.filter { it.isThisWeek(weeks) }
-                .map { Pair(index, it) })
+            coursesForWeek.addAll(course.TPs.filter {
+                it.isThisWeek(weeks)
+            }.map {
+                Pair(index, it)
+            })
 
             //挑出所有非本周课
             coursesNotThisWeek.addAll(course.TPs.filter { !it.isThisWeek(weeks) }

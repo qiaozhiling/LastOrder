@@ -1,8 +1,16 @@
 package com.qzl.lun6.ui.fragment.table
 
+import android.app.Activity.RESULT_OK
+import android.content.Intent
 import android.os.Bundle
 import com.qzl.lun6.R
 import com.qzl.lun6.databinding.FragmentTableBinding
+import com.qzl.lun6.logic.model.course.Course
+import com.qzl.lun6.logic.model.course.Exam
+import com.qzl.lun6.logic.model.course.TP
+import com.qzl.lun6.logic.model.course.Transfer
+import com.qzl.lun6.ui.activity.AddCourseActivity
+import com.qzl.lun6.ui.activity.TableSettingActivity
 import com.qzl.lun6.ui.activity.mainactivity.MainActivity
 import com.qzl.lun6.ui.fragment.BaseFragment
 import com.qzl.lun6.utils.log
@@ -16,16 +24,28 @@ class TableFragment : BaseFragment<FragmentTableBinding>() {
 
     private val viewModel by lazy { (activity as MainActivity).viewModel }
 
+    private val requestCodeTableSetting = 1
+    private val requestCodeAddCourse = 2
+
+    private var currentTerm: String = ""
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        //菜单点击事件
+        //菜单
         binding.toolbarTable.apply {
             inflateMenu(R.menu.table_menu)
+            //点击事件
             setOnMenuItemClickListener { item ->
                 when (item.itemId) {
-                    R.id.add_table_menu -> "add_table_menu".toast()
-                    R.id.setting_table_menu -> "setting_table_menu".toast()
+                    R.id.add_table_menu -> {
+                        val intent = Intent(context, AddCourseActivity::class.java)
+                        startActivityForResult(intent, requestCodeAddCourse)
+                    }
+                    R.id.setting_table_menu -> {
+                        val intent = Intent(context, TableSettingActivity::class.java)
+                        startActivityForResult(intent, requestCodeTableSetting)
+                    }
                 }
                 return@setOnMenuItemClickListener true
             }
@@ -108,9 +128,43 @@ class TableFragment : BaseFragment<FragmentTableBinding>() {
          }*/
     }
 
+
     override fun onResume() {
         super.onResume()
         setStatusBarColor(R.color.white)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        when {
+            requestCode == requestCodeAddCourse && resultCode == RESULT_OK -> {
+                val sDW = data?.getIntExtra("sDW", 2)!!
+                val startSection = data.getIntExtra("startSection", 1)
+                val endSection = data.getIntExtra("endSection", 1)
+                val startWeek = data.getIntExtra("startWeek", 1)
+                val endWeek = data.getIntExtra("endWeek", 1)
+                val week = data.getIntExtra("week", 1)
+                val courseName = data.getStringExtra("courseName")!!
+                val teacher = data.getStringExtra("teacher")!!
+                val place = data.getStringExtra("place")!!
+                val remark = data.getStringExtra("remark")!!
+                val course = Course(
+                    courseName,
+                    teacher,
+                    listOf(TP(startWeek, endWeek, week, sDW, startSection, endSection, place)),
+                    Exam(""),
+                    Transfer(""),
+                    remark
+                )
+                viewModel.myData.courses.add(course)
+                binding.tableviewTable.notifyDataChange()
+            }
+
+            requestCode == requestCodeTableSetting && resultCode == RESULT_OK -> {
+                "setting".toast()
+            }
+        }
     }
 
     private fun showWheel() {
