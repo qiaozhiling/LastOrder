@@ -75,12 +75,14 @@ class TableFragment : BaseFragment<FragmentTableBinding>() {
 
         // 数据监听绑定
         // TODO: 2021/7/6 绑定时会触发请求？？？？？？
-        viewModel.myDataLiveData.observe(viewLifecycleOwner) {
-            val myData = it.getOrNull()
+        viewModel.myDataLiveData.observe(viewLifecycleOwner) { result ->
+            val myData = result.getOrNull()
 
             if (myData != null) {
                 viewModel.myData.courses.apply {
-                    clear()
+                    removeIf { course ->
+                        course.type == 0//删除所有的教务处课程
+                    }
                     addAll(myData.courses)
                 }
                 viewModel.myData.dates.apply {
@@ -91,7 +93,7 @@ class TableFragment : BaseFragment<FragmentTableBinding>() {
                 binding.tableviewTable.notifyDataChange()
                 "获取课程成功".toast()
             } else {
-                it.exceptionOrNull()?.printStackTrace()
+                result.exceptionOrNull()?.printStackTrace()
                 "获取课程失败，显示本地缓存".toast()
             }
 
@@ -195,7 +197,7 @@ class TableFragment : BaseFragment<FragmentTableBinding>() {
     private fun initItems(): Array<WheelItem?> {
         val items = arrayOfNulls<WheelItem>(22)
         for (i in 0..21) {
-            items[i] = WheelItem("第${i+1}周")
+            items[i] = WheelItem("第${i + 1}周")
         }
         return items
     }
