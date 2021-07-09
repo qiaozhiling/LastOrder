@@ -138,6 +138,7 @@ class TableFragment : BaseFragment<FragmentTableBinding>() {
         super.onActivityResult(requestCode, resultCode, data)
 
         when {
+            //添加课程
             requestCode == requestCodeAddCourse && resultCode == RESULT_OK -> {
                 val sDW = data?.getIntExtra("sDW", 2)!!
                 val startSection = data.getIntExtra("startSection", 1)
@@ -155,12 +156,14 @@ class TableFragment : BaseFragment<FragmentTableBinding>() {
                     listOf(TP(startWeek, endWeek, week, sDW, startSection, endSection, place)),
                     Exam(""),
                     Transfer(""),
-                    remark
+                    remark,
+                    1
                 )
                 viewModel.myData.courses.add(course)
                 binding.tableviewTable.notifyDataChange()
             }
 
+            //设置
             requestCode == requestCodeTableSetting && resultCode == RESULT_OK -> {
                 "setting".toast()
             }
@@ -192,7 +195,7 @@ class TableFragment : BaseFragment<FragmentTableBinding>() {
     private fun initItems(): Array<WheelItem?> {
         val items = arrayOfNulls<WheelItem>(22)
         for (i in 0..21) {
-            items[i] = WheelItem("第${i}周")
+            items[i] = WheelItem("第${i+1}周")
         }
         return items
     }

@@ -170,8 +170,8 @@ class AddCourseActivity : BaseActivity<ActivityAddCourseBinding>() {
         dialog.show()
         dialog.setTitle("选择星期")
         dialog.setCancelButton("取消", null)
-        dialog.setOKButton("确定") { _, item0, _, item2, _, _ ->
-            val week = item0!!.showText.replace(Regex("[星期]"), "").toInt()
+        dialog.setOKButton("确定") { _, item0, _, _, _, _ ->
+            week = item0!!.showText.replace(Regex("[星期]"), "").toInt()
 
             binding.tvWeekAddCourse.text = map[week]
 

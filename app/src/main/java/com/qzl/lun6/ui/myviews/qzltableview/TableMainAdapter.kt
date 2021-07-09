@@ -16,6 +16,7 @@ import com.qzl.lun6.logic.model.course.Course
 import com.qzl.lun6.logic.model.course.TP
 import com.qzl.lun6.ui.myviews.InfoDialog
 import java.util.*
+import kotlin.collections.ArrayList
 
 
 /**
@@ -43,7 +44,11 @@ class TableMainAdapter :
 
     private var dates: List<Calendar> = listOf()
 
-    private var courseList: List<Course> = listOf()
+    var courseList: List<Course> = listOf()
+
+    private val courseCode = 0
+    private val examCode = 1
+    private val transferCode = 2
 
     fun setData(dates: List<Calendar>, courseList: List<Course>) {
         this.dates = dates
@@ -198,11 +203,10 @@ class TableMainAdapter :
             val course = courseList[c.first]
             val color = colorList[c.first % colorList.size]
             draw(
-                c.second,
                 holder,
-                course.courseName,
-                course.teacherName,
-                course.remark,
+                course,
+                c.second,
+                courseCode,
                 color,
                 whiteColor
             )
@@ -214,11 +218,10 @@ class TableMainAdapter :
             for (c in coursesNotThisWeek) {
                 val course = courseList[c.first]
                 draw(
-                    c.second,
                     holder,
-                    course.courseName,
-                    course.teacherName,
-                    course.remark,
+                    course,
+                    c.second,
+                    courseCode,
                     lightGrayColor,
                     deepGrayColor
                 )
@@ -231,11 +234,10 @@ class TableMainAdapter :
             val color = colorList[c.first % colorList.size]
             if (c.second.isThisWeek(weeks)) {
                 draw(
-                    c.second,
                     holder,
-                    "[考试]${course.courseName}",
-                    course.teacherName,
-                    course.remark,
+                    course,
+                    c.second,
+                    examCode,
                     color,
                     whiteColor
                 )
@@ -247,11 +249,10 @@ class TableMainAdapter :
             val color = colorList[c.first % colorList.size]
             if (c.second.isThisWeek(weeks)) {
                 draw(
-                    c.second,
                     holder,
-                    "[调课]${course.courseName}",
-                    course.teacherName,
-                    course.remark,
+                    course,
+                    c.second,
+                    transferCode,
                     color,
                     whiteColor
                 )
@@ -266,14 +267,26 @@ class TableMainAdapter :
      * @param textColor 字体颜色 Color.rgb()
      */
     private fun draw(
-        tp: TP,
         holder: Holder,
-        courseName: String,
-        teacherName: String?,
-        remark: String?,
+        course: Course,
+        tp: TP,
+        code: Int,
         backgroundColor: Int,
         textColor: Int
     ) {
+
+        val courseName = when (code) {
+            examCode -> "[考试]${course.courseName}"
+            transferCode -> "[调课]${course.courseName}"
+            else -> course.courseName
+        }
+
+        /*  val teacherName = course.teacherName
+          val remark = when (code) {
+              examCode -> course.exam.origin
+              transferCode -> course.transferInfo.origin
+              else -> course.remark
+          }*/
 
         val week = tp.week - 1 //星期几 脚标 0-6
         val start = tp.startSection
@@ -333,9 +346,9 @@ class TableMainAdapter :
                 InfoDialog(
                     holder.context,
                     tp,
-                    courseName,
-                    teacherName,
-                    remark
+                    course,
+                    code,
+                    this@TableMainAdapter
                 ).show()
             }
         }
