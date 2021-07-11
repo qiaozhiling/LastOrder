@@ -54,16 +54,7 @@ object NetUtils {
      * 1 验证码图片
      * @throws NetException("请检查网络")("教务处连接超时")
      */
-    suspend fun getVerifyCode(): Bitmap = try {
-        val pic = mServer.verifyCode().byteStream()
-        BitmapFactory.decodeStream(pic)
-    } catch (e: Exception) {
-        when (e) {
-            is UnknownHostException -> throw NetException("请检查网络")
-            is SocketTimeoutException -> throw NetException("教务处连接超时")
-            else -> throw e
-        }
-    }
+    suspend fun getVerifyCode() = mServer.verifyCode()
 
     /**
      * 2

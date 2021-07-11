@@ -16,7 +16,10 @@ open class BaseActivity<VB : ViewBinding> : AppCompatActivity() {
         //使用反射得到viewbinding的class
         val type = javaClass.genericSuperclass as ParameterizedType
         val aClass = type.actualTypeArguments[0] as Class<*>
-        val method = aClass.getDeclaredMethod("inflate", LayoutInflater::class.java)
+        val method = aClass.getDeclaredMethod(
+            "inflate",
+            LayoutInflater::class.java
+        )
         method.invoke(null, layoutInflater) as VB
     }
 

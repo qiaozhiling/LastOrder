@@ -7,7 +7,7 @@
     android:background="@drawable/my_background_layer_list"
     android:orientation="vertical"
     android:overScrollMode="never"
-    tools:context=".ui.fragment.my.MyFragment"
+    tools:context=".ui.fragment.MyFragment"
     tools:menu="@menu/my_menu">
 
     <LinearLayout

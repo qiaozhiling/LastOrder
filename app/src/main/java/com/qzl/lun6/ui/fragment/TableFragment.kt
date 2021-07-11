@@ -1,4 +1,4 @@
-package com.qzl.lun6.ui.fragment.table
+package com.qzl.lun6.ui.fragment
 
 import android.app.Activity.RESULT_OK
 import android.content.Intent
@@ -12,8 +12,6 @@ import com.qzl.lun6.logic.model.course.Transfer
 import com.qzl.lun6.ui.activity.AddCourseActivity
 import com.qzl.lun6.ui.activity.TableSettingActivity
 import com.qzl.lun6.ui.activity.mainactivity.MainActivity
-import com.qzl.lun6.ui.fragment.BaseFragment
-import com.qzl.lun6.utils.log
 import com.qzl.lun6.utils.setStatusBarColor
 import com.qzl.lun6.utils.toast
 import jsc.kit.wheel.base.WheelItem
@@ -74,7 +72,6 @@ class TableFragment : BaseFragment<FragmentTableBinding>() {
         binding.tableviewTable.setCurrentItem()
 
         // 数据监听绑定
-        // TODO: 2021/7/6 绑定时会触发请求？？？？？？
         viewModel.myDataLiveData.observe(viewLifecycleOwner) { result ->
             val myData = result.getOrNull()
 

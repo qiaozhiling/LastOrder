@@ -1,4 +1,4 @@
-package com.qzl.lun6.ui.fragment.toolbox
+package com.qzl.lun6.ui.fragment.toolboxfragment
 
 import android.os.Bundle
 import android.view.View

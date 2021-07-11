@@ -14,7 +14,7 @@ interface CourseDao {
 
     //查全部
     @Query("select * from Course")//Course
-    suspend fun loadAllCourse(): List<Course>//返回所有Course的列表
+    suspend fun loadAllCourse(): List<Course>//所有
 
     //删全部
     @Query("delete from Course")

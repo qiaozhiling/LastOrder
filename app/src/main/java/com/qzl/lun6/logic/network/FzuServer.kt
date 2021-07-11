@@ -5,7 +5,7 @@ import okhttp3.ResponseBody
 import retrofit2.Response
 import retrofit2.http.*
 
-interface FzuServer {
+    interface FzuServer {
 
     /**
      * 1验证码图片 https://jwcjwxt2.fzu.edu.cn:82/plus/verifycode.asp
@@ -61,7 +61,6 @@ interface FzuServer {
         //@Query("id") id: String = NetUtils.getID()
         //@Header("Cookie") cookie: List<String> = getCookie(),
     ): String
-
 
     /**
      * 6 校历 https://jwcjwxt1.fzu.edu.cn/xl.asp

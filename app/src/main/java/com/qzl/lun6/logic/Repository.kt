@@ -1,5 +1,6 @@
 package com.qzl.lun6.logic
 
+import android.graphics.BitmapFactory
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.liveData
 import com.google.gson.Gson
@@ -10,6 +11,7 @@ import com.qzl.lun6.logic.model.MyData
 import com.qzl.lun6.logic.model.course.Course
 import com.qzl.lun6.logic.network.AnalysisUtils
 import com.qzl.lun6.logic.network.NetUtils
+import com.qzl.lun6.utils.exception.NetException
 import com.qzl.lun6.utils.getCalendar
 import com.qzl.lun6.utils.log
 import com.qzl.lun6.utils.mAdd
@@ -17,6 +19,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import okhttp3.Cookie
 import java.io.IOException
+import java.net.SocketTimeoutException
+import java.net.UnknownHostException
 import java.util.*
 import kotlin.collections.ArrayList
 import kotlin.collections.HashMap
@@ -25,11 +29,25 @@ import kotlin.collections.HashMap
 object Repository {
 
     ///网络获取
+    fun requestVerifyCode() = liveData {
+        val result = try {
+            val pic = NetUtils.getVerifyCode().byteStream()
+            Result.success(BitmapFactory.decodeStream(pic))
+        } catch (e: Exception) {
+            when (e) {
+                is UnknownHostException -> Result.failure(NetException("请检查网络"))
+                is SocketTimeoutException -> Result.failure(NetException("教务处连接超时"))
+                else -> Result.failure(e)
+            }
+        }
+        emit(result)
+    }
 
-    ///查询课表需要三个其他参数 是课表页面的隐藏数据
-    //__VIEWSTATE
-    //__EVENTVALIDATION
-    //__VIEWSTATEGENERATOR
+
+///查询课表需要三个其他参数 是课表页面的隐藏数据
+//__VIEWSTATE
+//__EVENTVALIDATION
+//__VIEWSTATEGENERATOR
 
     private var courseParameter: Map<String, String>? = null
 
@@ -67,53 +85,53 @@ object Repository {
         emit(result)
     }
 
-   /* @Synchronized
-    fun requestCourse(yearCode: String) = liveData {
+/* @Synchronized
+ fun requestCourse(yearCode: String) = liveData {
 
-        "发起课程请求".log()
-        val result = try {
-            /*val oP = coursyearCodeLiveDataeParameter
-            val formMap = mutableMapOf<String, String>().apply {
-                //表单参数
-                put("ctl00\$ContentPlaceHolder1\$DDL_xnxq", year)
-                put("ctl00\$ContentPlaceHolder1\$BT_submit", "确定")
-                putAll(oP)
-            }*/
-            // TODO: 2021/6/29 formMap
-            val html = NetUtils.getCourseList(mapOf())
+     "发起课程请求".log()
+     val result = try {
+         /*val oP = coursyearCodeLiveDataeParameter
+         val formMap = mutableMapOf<String, String>().apply {
+             //表单参数
+             put("ctl00\$ContentPlaceHolder1\$DDL_xnxq", year)
+             put("ctl00\$ContentPlaceHolder1\$BT_submit", "确定")
+             putAll(oP)
+         }*/
+         // TODO: 2021/6/29 formMap
+         val html = NetUtils.getCourseList(mapOf())
 
-            if (html.contains("无当前登录用户，请重新登录")) {
-                throw IOException("登入信息过期")
-            } else {
-                val courses = AnalysisUtils.getCourseFromHtml(html)
+         if (html.contains("无当前登录用户，请重新登录")) {
+             throw IOException("登入信息过期")
+         } else {
+             val courses = AnalysisUtils.getCourseFromHtml(html)
 
-                Result.success(courses)
-            }
+             Result.success(courses)
+         }
 
-        } catch (e: Exception) {
-            Result.failure(e)
-        }
-        emit(result)
-    }
+     } catch (e: Exception) {
+         Result.failure(e)
+     }
+     emit(result)
+ }
 
 
-    fun requestCalendar(yearCode: String): LiveData<Result<List<Calendar>>> = liveData {
-        "发起校历请求".log()
-        val result = try {
-            // TODO: 2021/6/29
-            val html = NetUtils.getSchoolCalendar()
-            val dates = AnalysisUtils.getCalendarFromHtml(html,)
-            Result.success(dates)
-        } catch (e: Exception) {
-            Result.failure(e)
-        }
+ fun requestCalendar(yearCode: String): LiveData<Result<List<Calendar>>> = liveData {
+     "发起校历请求".log()
+     val result = try {
+         // TODO: 2021/6/29
+         val html = NetUtils.getSchoolCalendar()
+         val dates = AnalysisUtils.getCalendarFromHtml(html,)
+         Result.success(dates)
+     } catch (e: Exception) {
+         Result.failure(e)
+     }
 
-        emit(result)
-    }*/
+     emit(result)
+ }*/
 
 
     /////////////////////////////////////////本地获取
-    //登入状态
+//登入状态
     var isLogin: Boolean
         get() = SpfUtil.spf.getBoolean(SpfUtil.IS_LOGIN, false)
         set(value) {
@@ -218,18 +236,18 @@ object Repository {
         }
     }
 
-    /* fun <V> getHashMapData(clsV: Class<V>?): HashMap<String, V> {
-         val sp: SharedPreferences =
-             MyApplication.context.getSharedPreferences("SIGN", Context.MODE_PRIVATE)
-         val json = sp.getString("recognizeUserMap", "")
-         val map: HashMap<String, V> = HashMap()
-         val gson = Gson()
-         val jsonParser = JsonParser()
-         val obj = jsonParser.parse(json).asJsonObject
-         map["recognizeUserMap"] = gson.fromJson(obj, clsV)
-         Log.e(TAG, "getHashMapData-------------------$obj")
-         return map
-     }*/
+/* fun <V> getHashMapData(clsV: Class<V>?): HashMap<String, V> {
+     val sp: SharedPreferences =
+         MyApplication.context.getSharedPreferences("SIGN", Context.MODE_PRIVATE)
+     val json = sp.getString("recognizeUserMap", "")
+     val map: HashMap<String, V> = HashMap()
+     val gson = Gson()
+     val jsonParser = JsonParser()
+     val obj = jsonParser.parse(json).asJsonObject
+     map["recognizeUserMap"] = gson.fromJson(obj, clsV)
+     Log.e(TAG, "getHashMapData-------------------$obj")
+     return map
+ }*/
 
     //数据库操作
     private val courseDao by lazy { AppDatabase.getDatabase(MyApplication.context).getCourseDao() }

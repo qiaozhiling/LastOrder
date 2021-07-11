@@ -23,8 +23,7 @@ open class BaseFragment<VB : ViewBinding> : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
-
+        
         val type = javaClass.genericSuperclass as ParameterizedType
         val aClass = type.actualTypeArguments[0] as Class<*>
         val method = aClass.getDeclaredMethod(

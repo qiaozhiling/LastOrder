@@ -1,4 +1,4 @@
-package com.qzl.lun6.ui.fragment.toolbox
+package com.qzl.lun6.ui.fragment.toolboxfragment
 
 import android.widget.ImageView
 import com.qzl.lun6.ui.myviews.qzlviewpager.QzlViewPagerAdapter

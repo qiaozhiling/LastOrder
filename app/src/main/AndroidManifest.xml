@@ -26,7 +26,7 @@
             android:value="2.8" />
 
         <activity android:name=".ui.activity.mainactivity.MainActivity" />
-        <activity android:name=".ui.activity.LoginActivity" />
+        <activity android:name=".ui.activity.loginactivity.LoginActivity" />
         <activity
             android:name=".ui.activity.SplashActivity"
             android:theme="@style/Theme.Splash">

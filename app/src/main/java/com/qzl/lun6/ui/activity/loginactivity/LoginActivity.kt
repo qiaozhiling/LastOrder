@@ -1,7 +1,8 @@
-package com.qzl.lun6.ui.activity
+package com.qzl.lun6.ui.activity.loginactivity
 
 import android.content.Intent
 import android.os.Bundle
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.qzl.lun6.databinding.ActivityLoginBinding
 import com.qzl.lun6.ui.activity.mainactivity.MainActivity
@@ -10,12 +11,15 @@ import com.qzl.lun6.utils.exception.NetException
 import com.qzl.lun6.utils.setDarkStatusBarTextColor
 import com.qzl.lun6.utils.toastInScope
 import com.qzl.lun6.logic.network.NetUtils
+import com.qzl.lun6.ui.activity.BaseActivity
+import com.qzl.lun6.utils.toast
 import kotlinx.coroutines.launch
 import java.lang.Exception
 
 class LoginActivity : BaseActivity<ActivityLoginBinding>() {
 
     private var logining = false//是否正在登入中
+    private val viewModel by lazy { ViewModelProvider(this).get(LoginViewModel::class.java) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -72,7 +76,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>() {
         }
 
         binding.loginEditGroupLogin.setCodeImageOnClick {
-            getCodePic()
+            viewModel.getNewVerifyCode()
         }
 
         binding.tvVisitorLogin.setOnClickListener {
@@ -81,25 +85,15 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>() {
             this@LoginActivity.finish()
         }
 
-        getCodePic()
-
-    }
-
-    private fun getCodePic() {
-
-        lifecycleScope.launch {
-
-            try {
-                val pic = NetUtils.getVerifyCode()
+        viewModel.verifyCodeLiveData.observe(this) {
+            val pic = it.getOrNull()
+            if (pic != null) {
                 binding.loginEditGroupLogin.setCodeImage(pic)
-            } catch (e: Exception) {
-                when {
-                    (e is NetException) || (e is LoginDataException) -> {
-                        e.message?.toastInScope()
-                    }
-                }
+            } else {
+                it.exceptionOrNull()?.message?.toast()
             }
         }
 
     }
+
 }

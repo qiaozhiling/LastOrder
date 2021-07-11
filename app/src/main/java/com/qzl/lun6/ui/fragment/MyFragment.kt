@@ -1,4 +1,4 @@
-package com.qzl.lun6.ui.fragment.my
+package com.qzl.lun6.ui.fragment
 
 import android.content.Intent
 import android.os.Bundle
@@ -8,9 +8,7 @@ import com.qzl.lun6.R
 import com.qzl.lun6.databinding.FragmentMyBinding
 import com.qzl.lun6.logic.Repository
 import com.qzl.lun6.logic.data.SpfUtil
-import com.qzl.lun6.ui.activity.LoginActivity
-import com.qzl.lun6.ui.activity.TableSettingActivity
-import com.qzl.lun6.ui.fragment.BaseFragment
+import com.qzl.lun6.ui.activity.loginactivity.LoginActivity
 import com.qzl.lun6.utils.setStatusBarColor
 import com.qzl.lun6.utils.toast
 import kotlinx.coroutines.launch

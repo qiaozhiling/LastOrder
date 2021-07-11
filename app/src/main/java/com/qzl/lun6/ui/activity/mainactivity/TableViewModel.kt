@@ -1,4 +1,4 @@
-package com.qzl.lun6.ui.fragment.table
+package com.qzl.lun6.ui.activity.mainactivity
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations

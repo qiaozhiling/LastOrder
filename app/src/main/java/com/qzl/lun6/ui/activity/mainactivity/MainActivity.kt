@@ -8,13 +8,11 @@ import com.qzl.lun6.R
 import com.qzl.lun6.databinding.ActivityMainBinding
 import com.qzl.lun6.logic.Repository
 import com.qzl.lun6.ui.activity.BaseActivity
-import com.qzl.lun6.ui.fragment.my.MyFragment
-import com.qzl.lun6.ui.fragment.table.TableFragment
-import com.qzl.lun6.ui.fragment.table.TableViewModel
-import com.qzl.lun6.ui.fragment.toolbox.ToolboxFragment
+import com.qzl.lun6.ui.fragment.MyFragment
+import com.qzl.lun6.ui.fragment.TableFragment
+import com.qzl.lun6.ui.fragment.toolboxfragment.ToolboxFragment
 import com.qzl.lun6.utils.log
 import com.qzl.lun6.utils.setDarkStatusBarTextColor
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class MainActivity : BaseActivity<ActivityMainBinding>() {

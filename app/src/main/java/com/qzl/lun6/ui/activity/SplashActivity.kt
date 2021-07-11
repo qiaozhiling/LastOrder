@@ -5,7 +5,7 @@ import android.os.Bundle
 import androidx.lifecycle.lifecycleScope
 import com.qzl.lun6.databinding.ActivitySplashBinding
 import com.qzl.lun6.logic.Repository
-import com.qzl.lun6.logic.data.SpfUtil
+import com.qzl.lun6.ui.activity.loginactivity.LoginActivity
 import com.qzl.lun6.ui.activity.mainactivity.MainActivity
 import kotlinx.coroutines.launch
 
