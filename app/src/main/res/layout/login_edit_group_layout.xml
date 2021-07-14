@@ -22,7 +22,6 @@
         android:textColor="@color/hint_gray" />
 
     <EditText
-        android:text="032005102"
         android:textSize="16sp"
         android:textColorHint="@color/hint_gray"
         android:id="@+id/edit_user_login_group"
@@ -36,7 +35,6 @@
         android:textCursorDrawable="@drawable/edit_cursor" />
 
     <EditText
-        android:text="123456789c"
         android:textSize="16sp"
         android:textColorHint="@color/hint_gray"
         android:id="@+id/edit_paswd_login_group"
@@ -58,17 +56,16 @@
         android:orientation="horizontal">
 
         <EditText
-            android:textSize="16sp"
-            android:textColorHint="@color/hint_gray"
             android:id="@+id/edit_code_login_group"
             android:layout_width="0dp"
             android:layout_height="50dp"
             android:layout_weight="1"
             android:autofillHints=""
-            android:text="1"
             android:background="@drawable/edit_background"
             android:hint="请输入验证码 "
-            android:inputType="number" />
+            android:inputType="number"
+            android:textColorHint="@color/hint_gray"
+            android:textSize="16sp" />
 
         <ImageView
             android:id="@+id/iv_code_group"
