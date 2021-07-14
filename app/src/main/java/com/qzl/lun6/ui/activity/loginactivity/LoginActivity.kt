@@ -42,11 +42,8 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>() {
                 if (!logining) {
                     lifecycleScope.launch {
                         try {
-
                             binding.btmLogin.text = "正 在 登 录 中..."
-
                             val mIntent = Intent(this@LoginActivity, MainActivity::class.java)
-
                             val loginData = binding.loginEditGroupLogin.getEditData()
                             //数据已有空判断
                             NetUtils.login(
@@ -54,11 +51,9 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>() {
                                 loginData["paswd"]!!,
                                 loginData["code"]!!
                             )
-
                             //登入成功跳转
                             startActivity(mIntent)
                             this@LoginActivity.finish()
-
                         } catch (e: Exception) {
                             when {
                                 (e is NetException) || (e is LoginDataException) -> {
@@ -71,10 +66,10 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>() {
                         }
                     }
                 }
-
             }
         }
 
+        //点击刷新验证码
         binding.loginEditGroupLogin.setCodeImageOnClick {
             viewModel.getNewVerifyCode()
         }
@@ -93,7 +88,5 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>() {
                 it.exceptionOrNull()?.message?.toast()
             }
         }
-
     }
-
 }

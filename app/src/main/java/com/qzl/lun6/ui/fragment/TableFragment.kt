@@ -74,7 +74,6 @@ class TableFragment : BaseFragment<FragmentTableBinding>() {
         // 数据监听绑定
         viewModel.myDataLiveData.observe(viewLifecycleOwner) { result ->
             val myData = result.getOrNull()
-
             if (myData != null) {
                 viewModel.myData.courses.apply {
                     removeIf { course ->
@@ -86,7 +85,6 @@ class TableFragment : BaseFragment<FragmentTableBinding>() {
                     clear()
                     addAll(myData.dates)
                 }
-
                 binding.tableviewTable.notifyDataChange()
                 "获取课程成功".toast()
             } else {

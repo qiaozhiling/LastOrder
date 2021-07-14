@@ -1,4 +1,4 @@
-package com.qzl.lun6.ui.myviews.qzltableview
+package com.qzl.lun6.ui.myviews.mytableview
 
 import  android.content.Context
 import android.util.AttributeSet
@@ -9,7 +9,6 @@ import androidx.viewpager2.widget.MarginPageTransformer
 import androidx.viewpager2.widget.ViewPager2
 import com.qzl.lun6.R
 import com.qzl.lun6.logic.model.course.Course
-import com.qzl.lun6.utils.log
 import java.util.*
 
 class TableView(context: Context, attrs: AttributeSet?, defStyleAttr: Int) :
@@ -58,12 +57,12 @@ class TableView(context: Context, attrs: AttributeSet?, defStyleAttr: Int) :
         dateBarAdapter.notifyDataSetChanged()
         mainAdapter.notifyDataSetChanged()
         if (counter == 0) {
+            //如果是第一次进入 设置currentItem
             setCurrentItem()
         }
 
     }
 
-    // TODO: 2021/6/29 直接显示当前周功能
     fun setCurrentItem() {
         val dates = dateBarAdapter.dates
 
@@ -100,7 +99,6 @@ class TableView(context: Context, attrs: AttributeSet?, defStyleAttr: Int) :
 
             counter = 1
         }
-
     }
 
     fun setCurrentItem(thisWeek: Int) {

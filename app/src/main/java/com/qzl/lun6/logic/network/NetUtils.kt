@@ -1,11 +1,8 @@
 package com.qzl.lun6.logic.network
 
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
-import com.qzl.lun6.logic.model.course.Course
+import com.qzl.lun6.logic.Repository
 import com.qzl.lun6.utils.exception.LoginDataException
 import com.qzl.lun6.utils.exception.NetException
-import internet.FzuServer
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import okhttp3.ResponseBody
@@ -14,45 +11,13 @@ import retrofit2.Response
 import java.net.SocketTimeoutException
 import java.net.UnknownHostException
 import java.nio.charset.Charset
-import java.util.*
 
 
 object NetUtils {
-    ///用户学期
-    private var USER_TERMS: List<String>? = null
-
-    fun getUserTerms() = USER_TERMS
-
-    fun setUserTerms(list: List<String>) {
-        USER_TERMS = list
-    }
-
-    ///校历
-    private var SCHOOL_TERMS: Map<String, String>? = null
-
-    private fun getSchoolTerns() = SCHOOL_TERMS
-
-    fun setSchoolTerns(map: Map<String, String>) {
-        SCHOOL_TERMS = map
-    }
-
-    //校历查询参数
-    private var SCHOOLYEARS = mapOf<String, String>()
-
-    fun getSchoolYear() = SCHOOLYEARS as Map<String, String>
-
-    fun setSchoolYear(map: Map<String, String>) {
-        SCHOOLYEARS = map
-    }
-
-
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    //请求部分
     private val mServer = ServerCreator.create(FzuServer::class.java)
 
     /**
      * 1 验证码图片
-     * @throws NetException("请检查网络")("教务处连接超时")
      */
     suspend fun getVerifyCode() = mServer.verifyCode()
 
@@ -63,7 +28,7 @@ object NetUtils {
      * @throws  LoginDataException 1账号密码错误,2网络错误,3Body为空
      */
     private suspend fun sendLoginCheck(user: String, password: String, verifyCode: String): String {
-        //todo 优化逻辑
+
         val fieldMap = mutableMapOf<String, String>().apply {
             put("muser", user)
             put("passwd", password)
@@ -90,11 +55,11 @@ object NetUtils {
      * 4 再验证Loginchk_xs
      */
     private suspend fun getLoginCHK(queryMap: Map<String, String>): String {
-
         val response = mServer.LoginCHK(queryMap)
-        //todo 更改id储存逻辑
-        // TODO: 2021/6/29 此处为真id
-        AnalysisUtils.saveIDFromResponse(response)
+
+        //保存id
+        Repository.id = AnalysisUtils.getIDFromResponse(response)
+
         return response.body() ?: ""
     }
 
@@ -104,12 +69,11 @@ object NetUtils {
      *  @throws LoginDataException 1账号密码错误,2网络错误,3Body为空,4正在登入中...
      *  @throws NetException 1"请检查网络",2"教务处连接超时"
      */
-    suspend fun login(user: String, passwd: String, verifyCode: String) {
+    suspend fun login(user: String, password: String, verifyCode: String) {
         return withContext(Dispatchers.IO) {
             try {
-
                 //发送登入
-                val loginCheck = sendLoginCheck(user, passwd, verifyCode)
+                val loginCheck = sendLoginCheck(user, password, verifyCode)
                 //解析获得token
                 val token = AnalysisUtils.getTokenFromHtml(loginCheck)
                 //解析获得查询
@@ -118,10 +82,7 @@ object NetUtils {
                 getSsoLogin(token)
 
                 //再验证Loginchk_xs
-                //登入成功请求到主页 不包含名字信息
-                /*val b =*/
-                //b.log()
-                getLoginCHK(queries)
+                getLoginCHK(queries)   //登入成功请求到主页  无名字等信息
 
             } catch (e: Exception) {
                 when (e) {

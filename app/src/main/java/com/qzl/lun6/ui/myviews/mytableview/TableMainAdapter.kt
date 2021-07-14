@@ -1,4 +1,4 @@
-package com.qzl.lun6.ui.myviews.qzltableview
+package com.qzl.lun6.ui.myviews.mytableview
 
 import android.content.Context
 import android.graphics.Color
@@ -16,13 +16,7 @@ import com.qzl.lun6.logic.model.course.Course
 import com.qzl.lun6.logic.model.course.TP
 import com.qzl.lun6.ui.myviews.InfoDialog
 import java.util.*
-import kotlin.collections.ArrayList
 
-
-/**
- * TODO
- * @param count 周数
- */
 class TableMainAdapter :
     RecyclerView.Adapter<TableMainAdapter.Holder>() {
 

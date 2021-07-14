@@ -29,6 +29,9 @@ import kotlin.collections.HashMap
 object Repository {
 
     ///网络获取
+    /**
+     * NetException("请检查网络")("教务处连接超时")
+     */
     fun requestVerifyCode() = liveData {
         val result = try {
             val pic = NetUtils.getVerifyCode().byteStream()
@@ -43,15 +46,14 @@ object Repository {
         emit(result)
     }
 
-
-///查询课表需要三个其他参数 是课表页面的隐藏数据
-//__VIEWSTATE
-//__EVENTVALIDATION
-//__VIEWSTATEGENERATOR
+    ///课表查询需要三个其他参数 课表页面的隐藏数据
+    //__VIEWSTATE
+    //__EVENTVALIDATION
+    //__VIEWSTATEGENERATOR
 
     private var courseParameter: Map<String, String>? = null
 
-    fun requestData(yearCode: String) = liveData<Result<MyData>> {
+    fun requestData(yearCode: String) = liveData {
         //yearCode 202001 202002
         val result = try {
             //请求选课
@@ -85,7 +87,7 @@ object Repository {
         emit(result)
     }
 
-/* @Synchronized
+    /* @Synchronized
  fun requestCourse(yearCode: String) = liveData {
 
      "发起课程请求".log()
@@ -131,7 +133,7 @@ object Repository {
 
 
     /////////////////////////////////////////本地获取
-//登入状态
+    //登入状态
     var isLogin: Boolean
         get() = SpfUtil.spf.getBoolean(SpfUtil.IS_LOGIN, false)
         set(value) {
@@ -152,7 +154,7 @@ object Repository {
             SpfUtil.putValue(SpfUtil.USER_NUMBER, value)
         }
 
-    ///真id
+    //真id
     var id: String
         get() = SpfUtil.spf.getString(SpfUtil.ID, "")!!
         set(value) {
@@ -254,7 +256,6 @@ object Repository {
 
     suspend fun loadCourse(): List<Course> = withContext(Dispatchers.IO) {
         try {
-            // TODO: 2021/7/6
             val c = courseDao.loadAllCourse()
             c
         } catch (e: Exception) {

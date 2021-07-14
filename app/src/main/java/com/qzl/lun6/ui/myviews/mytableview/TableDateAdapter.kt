@@ -1,4 +1,4 @@
-package com.qzl.lun6.ui.myviews.qzltableview
+package com.qzl.lun6.ui.myviews.mytableview
 
 import android.view.LayoutInflater
 import android.view.View

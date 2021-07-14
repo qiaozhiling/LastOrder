@@ -3,12 +3,13 @@ package com.qzl.lun6.ui.myviews
 import android.app.AlertDialog
 import android.content.Context
 import android.view.View
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import com.qzl.lun6.R
 import com.qzl.lun6.logic.model.course.Course
 import com.qzl.lun6.logic.model.course.TP
-import com.qzl.lun6.ui.myviews.qzltableview.TableMainAdapter
+import com.qzl.lun6.ui.myviews.mytableview.TableMainAdapter
 import com.qzl.lun6.utils.toast
 
 
@@ -30,6 +31,7 @@ class InfoDialog(
     private val delete: TextView
     private val edit: ImageView
     private val exit: ImageView
+    private val homework: Button
 
     private val courseCode = 0
     private val examCode = 1
@@ -46,6 +48,7 @@ class InfoDialog(
             delete = findViewById(R.id.textview_delete_infodialog)
             edit = findViewById(R.id.imageView_edit_infodialog)
             exit = findViewById(R.id.imageView_exit_infodialog)
+            homework = findViewById(R.id.bt_addhomework_infodialog)
         }
 
         val courseName = when (code) {
@@ -74,6 +77,11 @@ class InfoDialog(
         this.remark.text = remark
 
         this.setView(view)
+
+        homework.setOnClickListener {
+            //todo
+            "添加作业".toast()
+        }
 
         exit.setOnClickListener {
             dismiss()

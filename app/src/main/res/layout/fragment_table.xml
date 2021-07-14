@@ -32,7 +32,7 @@
         android:layout_below="@+id/toolbar_table"
         android:layout_marginTop="16dp">
 
-        <com.qzl.lun6.ui.myviews.qzltableview.TableView
+        <com.qzl.lun6.ui.myviews.mytableview.TableView
             android:id="@+id/tableview_table"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />

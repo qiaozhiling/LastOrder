@@ -1,4 +1,4 @@
-package com.qzl.lun6.ui.myviews.qzltableview
+package com.qzl.lun6.ui.myviews.mytableview
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

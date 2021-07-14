@@ -1,6 +1,5 @@
 package com.qzl.lun6.logic.network
 
-import com.qzl.lun6.logic.Repository
 import com.qzl.lun6.logic.model.course.Course
 import com.qzl.lun6.logic.model.course.Exam
 import com.qzl.lun6.logic.model.course.TP
@@ -16,12 +15,22 @@ import kotlin.collections.ArrayList
 object AnalysisUtils {
 
     /**
-     * 保存目标id
+     * 获得id
      */
-    fun saveIDFromResponse(response: Response<String>) {
+    fun getIDFromResponse(response: Response<String>): String {
         val responseInfo = response.raw().toString()
-        val id = getBetween(responseInfo, "id=", "&hosturl")
-        Repository.id = id
+        val id = getByRegex(responseInfo, "\\bid=(\\d+)")
+        return id
+    }
+
+    private fun getByRegex(str: String, regex: String): String {
+        val strs: MutableList<String> = ArrayList()
+        val pID: Pattern = Pattern.compile(regex)
+        val m: Matcher = pID.matcher(str)
+        while (m.find()) {
+            strs.add(m.group(1)!!)
+        }
+        return strs[0]
     }
 
     /**
@@ -37,11 +46,24 @@ object AnalysisUtils {
      */
     fun getQueryInfoFromHtml(str: String): Map<String, String> {
         return hashMapOf(
-            "id" to getBetween(str, "id=", "&num"),//此处id为临时id
-            "num" to getBetween(str, "num=", "&ssourl"),
+            "id" to getByRegex(str, "\\bid=(\\d+)"),//此处id为临时id
+            "num" to getByRegex(str, "\\bnum=(\\d+)"),
             "ssourl" to "https://jwcjwxt2.fzu.edu.cn",
             "hosturl" to "https://jwcjwxt2.fzu.edu.cn:81"
         )
+    }
+
+    /**
+     * 返回A B串中间内容
+     */
+    private fun getBetween(str: String, left: String, right: String): String {
+        val strs: MutableList<String> = ArrayList()
+        val pID: Pattern = Pattern.compile("(?<=$left).*?(?=$right)")
+        val m: Matcher = pID.matcher(str)
+        while (m.find()) {
+            strs.add(m.group())
+        }
+        return strs[0].replace(left, "").replace(right, "")
     }
 
     // 从选课html中获得该学期
@@ -57,19 +79,6 @@ object AnalysisUtils {
             options[0].`val`()
         }
 
-    }
-
-    /**
-     * 返回A B串中间内容
-     */
-    private fun getBetween(str: String, left: String, right: String): String {
-        val strs: MutableList<String> = ArrayList()
-        val pID: Pattern = Pattern.compile("(?<=$left).*?(?=$right)")
-        val m: Matcher = pID.matcher(str)
-        while (m.find()) {
-            strs.add(m.group())
-        }
-        return strs[0].replace(left, "").replace(right, "")
     }
 
     fun getCourseFromHtml(html: String): List<Course> {
@@ -132,8 +141,6 @@ object AnalysisUtils {
                 it.text()
             })
         }
-
-        NetUtils.setUserTerms(list)
     }
 
 
@@ -143,7 +150,6 @@ object AnalysisUtils {
      */
     fun getSchoolScheduleFromHtm(html: String) {
         val dom = Jsoup.parse(html)
-
     }
 
     /**
@@ -204,6 +210,6 @@ object AnalysisUtils {
             }
         }
 
-       return map
+        return map
     }
 }

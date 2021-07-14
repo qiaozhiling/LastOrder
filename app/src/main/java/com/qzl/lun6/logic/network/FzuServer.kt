@@ -1,4 +1,4 @@
-package internet
+package com.qzl.lun6.logic.network
 
 import com.qzl.lun6.logic.Repository
 import okhttp3.ResponseBody
@@ -22,7 +22,7 @@ import retrofit2.http.*
     @Headers("referer:https://jwch.fzu.edu.cn/")
     @FormUrlEncoded
     suspend fun loginCheck(
-        @FieldMap fieldMap: Map<String, String>,
+        @FieldMap fieldMap: Map<String, String>
         //@Header("Cookie") cookie: List<String> = getCookie()
     ): String
 
@@ -33,7 +33,7 @@ import retrofit2.http.*
     @Headers("X-Requested-With:XMLHttpRequest")
     @FormUrlEncoded
     suspend fun ssoLogin(
-        @Field("token") token: String,
+        @Field("token") token: String
         //@Header("Cookie") cookie: List<String> = getCookie(),
         //@HeaderMap headerMap: Map<String, String>
     ): String
@@ -43,7 +43,7 @@ import retrofit2.http.*
      */
     @GET("loginchk_xs.aspx")
     suspend fun LoginCHK(
-        @QueryMap queryMap: Map<String, String>,
+        @QueryMap queryMap: Map<String, String>
         //@HeaderMap map: Map<String, String>
         //@Header("Cookie") cookie: List<String> = getCookie(),
         //@HeaderMap headerMap: Map<String, String>
