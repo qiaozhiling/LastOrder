@@ -55,12 +55,14 @@ class TableMainAdapter :
         Color.rgb(135, 206, 250),
         Color.rgb(139, 69, 19),
         Color.rgb(147, 112, 219),
+        Color.rgb(210, 105, 180),
         Color.rgb(230, 140, 0),
         Color.rgb(160, 82, 45),
         Color.rgb(204, 153, 204),
         Color.rgb(68, 118, 216),
         Color.rgb(95, 158, 160),
-        Color.rgb(175, 238, 173)
+        Color.rgb(175, 238, 173),
+        Color.rgb(230, 220, 140)
     )
     private val whiteColor = Color.rgb(255, 255, 255)
     private val lightGrayColor = Color.rgb(220, 220, 220)

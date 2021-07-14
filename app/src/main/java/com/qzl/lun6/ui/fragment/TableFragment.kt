@@ -25,6 +25,7 @@ class TableFragment : BaseFragment<FragmentTableBinding>() {
     private val requestCodeTableSetting = 1
     private val requestCodeAddCourse = 2
 
+    //todo 选择学期功能
     private var currentTerm: String = ""
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -172,7 +173,7 @@ class TableFragment : BaseFragment<FragmentTableBinding>() {
         val dialog: ColumnWheelDialog<WheelItem, WheelItem, WheelItem, WheelItem, WheelItem> =
             ColumnWheelDialog(context!!)
         dialog.show()
-        dialog.setTitle("选择菜单")
+        dialog.setTitle("选择周数")
         dialog.setCancelButton("取消", null)
         dialog.setOKButton("确定") { _, item0, _, _, _, _ ->
             val a = item0!!.showText.replace(Regex("[第周]"), "").toInt()

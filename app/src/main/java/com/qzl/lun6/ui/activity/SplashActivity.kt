@@ -7,6 +7,7 @@ import com.qzl.lun6.databinding.ActivitySplashBinding
 import com.qzl.lun6.logic.Repository
 import com.qzl.lun6.ui.activity.loginactivity.LoginActivity
 import com.qzl.lun6.ui.activity.mainactivity.MainActivity
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 class SplashActivity : BaseActivity<ActivitySplashBinding>() {
@@ -20,6 +21,7 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>() {
                 Intent(this@SplashActivity, MainActivity::class.java)
             } else {
                 //未登入 跳转登录
+                delay(1000)
                 Intent(this@SplashActivity, LoginActivity::class.java)
             }
             startActivity(intent)
