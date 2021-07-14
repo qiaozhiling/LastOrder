@@ -14,23 +14,16 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>() {
         super.onCreate(savedInstanceState)
 
         lifecycleScope.launch {
-            //todo 获取本地数据判断是否登入  如果没有 跳转登录界面,如果有 跳转mainActivity
             val isLogin = Repository.isLogin
-
             val intent = if (isLogin) {
                 //已登入 直接进入
-
                 Intent(this@SplashActivity, MainActivity::class.java)
             } else {
                 //未登入 跳转登录
-
                 Intent(this@SplashActivity, LoginActivity::class.java)
             }
-
             startActivity(intent)
             this@SplashActivity.finish()
         }
     }
-
-
 }

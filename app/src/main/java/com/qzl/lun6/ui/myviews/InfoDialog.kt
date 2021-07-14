@@ -68,7 +68,7 @@ class InfoDialog(
         val endWeeks = tp.endWeeks //start>=end
         val place = tp.place
 
-/////////////////////////
+        /////////////////////////
         this.place.text = place
         this.courseName.text = courseName
         this.teacher.text = teacherName
@@ -90,8 +90,6 @@ class InfoDialog(
         if (course.type == 1) {
             setEditAble()
         }
-
-
     }
 
 

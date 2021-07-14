@@ -121,7 +121,7 @@
                         android:id="@+id/tv_tern_my"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="%s年%s学期"
+                        android:text="2021年01学期"
                         android:textSize="14sp" />
 
                     <TextView
@@ -129,7 +129,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
-                        android:text="第%s周"
+                        android:text="第1周"
                         android:textSize="14sp" />
 
                 </RelativeLayout>
